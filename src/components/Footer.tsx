@@ -101,7 +101,7 @@ export default function Footer() {
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-gold/50 mt-0.5 shrink-0" />
                 <span className="text-cream/40 text-sm">
-                  Tantoyuca, Veracruz, México
+                  Huejutla de Reyes, Hidalgo, México
                 </span>
               </div>
               <div className="flex items-center gap-2">
