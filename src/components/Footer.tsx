@@ -101,12 +101,12 @@ export default function Footer() {
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-gold/50 mt-0.5 shrink-0" />
                 <span className="text-cream/40 text-sm">
-                  Huejutla de Reyes, Hidalgo, México
+                  Adolfo López Mateos 33, Huejutla de Reyes, Hgo.
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-gold/50 shrink-0" />
-                <span className="text-cream/40 text-sm">+52 123 456 7890</span>
+                <span className="text-cream/40 text-sm">+52 771 261 3445</span>
               </div>
             </div>
           </div>

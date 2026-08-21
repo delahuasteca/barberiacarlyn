@@ -7,11 +7,11 @@ import { MapPin, Phone, Clock, ExternalLink } from "lucide-react";
 const branches = [
   {
     name: "Carlyn VIP — Sucursal Principal",
-    address: "Huejutla de Reyes, Hidalgo, México",
-    phone: "+52 123 456 7890",
+    address: "Adolfo López Mateos 33, Aviación Civil, 43000 Huejutla de Reyes, Hgo.",
+    phone: "+52 771 261 3445",
     hours: "Lun - Dom: 8:00 AM - 9:00 PM",
     mapUrl:
-      "https://www.google.com/maps/place/Barber%C3%ADa+%22Carlyn+Vip%22/@21.1460641,-98.4065121,17z",
+      "https://www.google.com/maps/search/Barberia+Carlyn+Adolfo+Lopez+Mateos+33+Huejutla",
     featured: true,
   },
   {

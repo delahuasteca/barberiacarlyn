@@ -60,7 +60,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-cream font-serif font-semibold mb-1">Teléfono</h4>
-                  <p className="text-cream/50 text-sm">+52 123 456 7890</p>
+                  <p className="text-cream/50 text-sm">+52 771 261 3445</p>
                 </div>
               </div>
 
@@ -71,7 +71,9 @@ export default function Contact() {
                 <div>
                   <h4 className="text-cream font-serif font-semibold mb-1">Ubicación</h4>
                   <p className="text-cream/50 text-sm">
-                    Huejutla de Reyes, Hidalgo, México
+                    Adolfo López Mateos 33, Aviación Civil,
+                    <br />
+                    43000 Huejutla de Reyes, Hgo.
                   </p>
                 </div>
               </div>
