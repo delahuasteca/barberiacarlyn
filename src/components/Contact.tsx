@@ -71,7 +71,7 @@ export default function Contact() {
                 <div>
                   <h4 className="text-cream font-serif font-semibold mb-1">Ubicación</h4>
                   <p className="text-cream/50 text-sm">
-                    Tantoyuca, Veracruz, México
+                    Huejutla de Reyes, Hidalgo, México
                   </p>
                 </div>
               </div>

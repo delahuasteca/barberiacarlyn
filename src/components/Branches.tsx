@@ -7,7 +7,7 @@ import { MapPin, Phone, Clock, ExternalLink } from "lucide-react";
 const branches = [
   {
     name: "Carlyn VIP — Sucursal Principal",
-    address: "Tantoyuca, Veracruz, México",
+    address: "Huejutla de Reyes, Hidalgo, México",
     phone: "+52 123 456 7890",
     hours: "Lun - Dom: 8:00 AM - 9:00 PM",
     mapUrl:
