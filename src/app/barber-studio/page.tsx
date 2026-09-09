@@ -19,7 +19,7 @@ const services = [
   { name: "Corte de Cabello Personalizado Premium", price: 200 },
   { name: "Corte de Cabello Básico + Arreglo de Barba", price: 250 },
   { name: "Corte de Cabello Personalizado + Arreglo de Barba", price: 300 },
-  { name: "Corte y Arreglo de Barba", price: 150 },
+  { name: "Arreglo de Barba", price: 150 },
 ];
 
 const packages = [
