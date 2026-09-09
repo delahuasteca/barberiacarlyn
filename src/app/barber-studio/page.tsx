@@ -60,6 +60,9 @@ export default function BarberStudio() {
           <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight">
             BARBER STUDIO <span className="text-gradient-gold">CARLYN</span>
           </h1>
+          <p className="font-serif text-gold text-lg sm:text-2xl max-w-3xl mx-auto mt-6 leading-relaxed">
+            Mejor Atención, Mayor Exclusividad, Mayor Privacidad
+          </p>
           <div className="retro-line mx-auto my-7" />
           <p className="text-cream/70 max-w-lg mx-auto leading-relaxed">Elige tu servicio o paquete y agenda directamente con Carlyn por WhatsApp.</p>
         </div>
