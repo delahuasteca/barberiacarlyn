@@ -36,7 +36,7 @@ export default function Hero() {
         >
           <div className="h-px w-16 bg-gradient-to-r from-transparent to-gold/60" />
           <span className="text-gold text-xs tracking-[0.4em] uppercase font-light">
-            Desde el corazón de México
+            Desde el corazón de la Huasteca Hidalguense
           </span>
           <div className="h-px w-16 bg-gradient-to-l from-transparent to-gold/60" />
         </motion.div>
