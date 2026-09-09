@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   openGraph: {
     title: "Barber Studio Carlyn",
-    description: "Servicios Elite Premium y paquetes. Agenda con Carlyn.",
+    description: "Servicios Elite Premium y Paquetes. Agenda con Carlyn.",
   },
 };
 
@@ -26,7 +26,7 @@ const services = [
 
 const packages = [
   {
-    name: "Paquete 1", name: "Corte First Class, (La entrada al mundo Premium)", price: 150,
+    name: "Paquete 1, Corte First Class, (La entrada al mundo Premium)", price: 150,
     items: ["Corte Personalizado", "Lavado de Cabello", "Peinado con Productos Premium", "Loción al finalizar"],
   },
   {
