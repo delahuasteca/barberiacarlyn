@@ -7,11 +7,11 @@ import BrandLogo from "@/components/BrandLogo";
 
 export const metadata: Metadata = {
   title: "Barber Studio Carlyn | Elite Premium",
-  description: "Servicios Elite Premium y Paquetes de Barber Studio Carlyn. Agenda con Carlyn por WhatsApp.",
+  description: "Servicios Elite Premium y paquetes de Barber Studio Carlyn. Agenda con Carlyn por WhatsApp.",
   robots: { index: false, follow: false },
   openGraph: {
     title: "Barber Studio Carlyn",
-    description: "Servicios Elite Premium y Paquetes. Agenda con Carlyn.",
+    description: "Servicios Elite Premium y paquetes. Agenda con Carlyn.",
   },
 };
 
@@ -26,27 +26,33 @@ const services = [
 
 const packages = [
   {
-    name: "Paquete 1, Corte First Class", subname: (La entrada al mundo Premium), price: 150,
-    items: ["Corte Personalizado", "Lavado de Cabello", "Peinado con Productos Premium", "Loción al finalizar"],
+    name: "Paquete 1", price: 150,
+    subtitle: "Corte First Class",
+    description: "La entrada al mundo Premium",
+    items: ["Corte Personalizado", "Lavado de Cabello", "Peinado con Productos Premium", "Lociones al finalizar"],
   },
   {
-    name: "Paquete 2, Ritual Caballero, El favorito para el mantenimiento semanal", price: 300,
+    name: "Paquete 2", price: 300,
+    subtitle: "Ritual Caballero",
+    description: "El favorito para el mantenimiento semanal",
     items: ["Corte Personalizado", "Arreglo de barba", "Vapor de Ozono", "Lavado de cabello", "Masaje relajante", "Peinados con productos Premium", "Loción al finalizar"],
   },
   {
-    name: "Paquete 3, Premium Black, Limpieza y Estilo", price: 350,
-    items: ["Corte y Barba Personalizado", "Mascarilla negra", "Exfoliación facial", "Vapor Ozono", "Lavado de Cabello", "Masaje relajante, cuello, hombros", "Peinado con productos premium", "Tinte de barba"],
+    name: "Paquete 3", price: 350,
+    subtitle: "Premium Black",
+    description: "Limpieza y Estilo",
+    items: ["Corte y barba Personalizado", "Mascarilla negra", "Exfoliación facial", "Vapor Ozono", "Lavado de Cabello", "Masaje relajante, cuello, hombros", "Peinado con productos premium", "Tinte de barba"],
   },
 ];
 
-function bookingLink(name: string, subname: string, price: number) {
+function bookingLink(name: string, price: number) {
   return whatsappLink(`Hola, quiero agendar con BARBER STUDIO CARLYN: ${name} ($${price} MXN). ¿Qué horarios tienen disponibles?`);
 }
 
 export default function BarberStudio() {
-  return ( 
-    <main className="min-h-screen bg-brown-dark text-cream">
-      <header className="border-b border-gold/20">
+  return (
+    <main className="min-h-screen bg-brown-dark text-cream pt-[69px]">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-gold/20 bg-brown-dark">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-6 flex items-center justify-between gap-4">
           <Link href="/" className="inline-flex items-center gap-2 text-sm text-cream/80 hover:text-gold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
             <ArrowLeft className="w-4 h-4" aria-hidden="true" /> Volver al inicio
@@ -77,13 +83,11 @@ export default function BarberStudio() {
           <ul className="border-t border-gold/25">
             {services.map((service, i) => (
               <li key={service.name} className="border-b border-gold/20">
-              <li key={service.subname} className="border-b border-gold/16">
-                <a href={bookingLink(service.name, service.subname, service.price)} target="_blank" rel="noopener noreferrer"
+                <a href={bookingLink(service.name, service.price)} target="_blank" rel="noopener noreferrer"
                   aria-label={`Agendar ${service.name} por $${service.price} MXN en WhatsApp`}
                   className="group flex items-center gap-4 sm:gap-6 py-6 px-2 sm:px-4 hover:bg-brown-medium/30 focus-visible:outline-2 focus-visible:outline-gold transition-colors">
                   <span className="hidden sm:block text-gold/70 text-xs w-5">0{i + 1}</span>
                   <h3 className="flex-1 font-serif text-lg sm:text-xl leading-snug">{service.name}</h3>
-                  <h1 className="flex-1 font-serif text-lg sm:text-xl leading-snug">{service.subname}</h1>
                   <span className="font-serif text-xl sm:text-2xl text-gold whitespace-nowrap">${service.price}</span>
                   <ArrowUpRight className="w-5 h-5 text-gold shrink-0 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
                 </a>
@@ -95,9 +99,13 @@ export default function BarberStudio() {
         <section aria-labelledby="studio-packages" className="mt-16 sm:mt-24">
           <h2 id="studio-packages" className="font-serif text-3xl sm:text-4xl mb-8">Nuestros <span className="text-gold">Paquetes</span></h2>
           <div className="grid md:grid-cols-3 gap-5">
-            {packages.map((pack, i) => (
-              <article key={pack.name} className={`flex flex-col border p-6 sm:p-8 ${i === 2 ? "border-gold/60 bg-gradient-to-b from-brown-medium/70 to-brown-dark retro-glow" : "border-gold/25 bg-brown-medium/20"}`}>
-                <h3 className="font-serif text-2xl mb-4">{pack.name}</h3>
+            {packages.map((pack) => (
+              <article key={pack.name} className="flex flex-col border p-6 sm:p-8 border-gold/60 bg-gradient-to-b from-brown-medium/70 to-brown-dark retro-glow transition-shadow">
+                <div className="mb-6 md:min-h-40">
+                  <h3 className="font-serif text-3xl sm:text-4xl font-bold leading-tight mb-3">{pack.name}</h3>
+                  <p className="font-serif text-xl sm:text-2xl text-gold leading-snug mb-2">{pack.subtitle}</p>
+                  <p className="text-sm text-cream/70 leading-relaxed">{pack.description}</p>
+                </div>
                 <p className="text-gold font-serif text-4xl mb-7">${pack.price} <span className="font-sans text-xs text-cream/60">MXN</span></p>
                 <ul className="space-y-4 mb-9">
                   {pack.items.map(item => (
