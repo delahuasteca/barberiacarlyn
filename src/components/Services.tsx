@@ -95,7 +95,7 @@ export default function Services() {
           transition={{ delay: 1 }}
           className="text-center text-cream/30 text-sm mt-10 font-light"
         >
-          * Los precios pueden variar según sucursal. Consulta disponibilidad.
+          * Con la mejor atención para tu mayor comodidad y tranquilidad.
         </motion.p>
       </div>
     </section>
