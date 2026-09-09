@@ -26,7 +26,7 @@ const services = [
 
 const packages = [
   {
-    name: "Paquete 1, Corte First Class, (La entrada al mundo Premium)", price: 150,
+    name: "Paquete 1, Corte First Class", subname: (La entrada al mundo Premium), price: 150,
     items: ["Corte Personalizado", "Lavado de Cabello", "Peinado con Productos Premium", "Loción al finalizar"],
   },
   {
@@ -39,12 +39,12 @@ const packages = [
   },
 ];
 
-function bookingLink(name: string, price: number) {
+function bookingLink(name: string, subname: string, price: number) {
   return whatsappLink(`Hola, quiero agendar con BARBER STUDIO CARLYN: ${name} ($${price} MXN). ¿Qué horarios tienen disponibles?`);
 }
 
 export default function BarberStudio() {
-  return (
+  return ( 
     <main className="min-h-screen bg-brown-dark text-cream">
       <header className="border-b border-gold/20">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-6 flex items-center justify-between gap-4">
