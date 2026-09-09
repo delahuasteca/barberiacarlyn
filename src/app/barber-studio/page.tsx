@@ -77,11 +77,13 @@ export default function BarberStudio() {
           <ul className="border-t border-gold/25">
             {services.map((service, i) => (
               <li key={service.name} className="border-b border-gold/20">
-                <a href={bookingLink(service.name, service.price)} target="_blank" rel="noopener noreferrer"
+              <li key={service.subname} className="border-b border-gold/16">
+                <a href={bookingLink(service.name, service.subname, service.price)} target="_blank" rel="noopener noreferrer"
                   aria-label={`Agendar ${service.name} por $${service.price} MXN en WhatsApp`}
                   className="group flex items-center gap-4 sm:gap-6 py-6 px-2 sm:px-4 hover:bg-brown-medium/30 focus-visible:outline-2 focus-visible:outline-gold transition-colors">
                   <span className="hidden sm:block text-gold/70 text-xs w-5">0{i + 1}</span>
                   <h3 className="flex-1 font-serif text-lg sm:text-xl leading-snug">{service.name}</h3>
+                  <h1 className="flex-1 font-serif text-lg sm:text-xl leading-snug">{service.subname}</h1>
                   <span className="font-serif text-xl sm:text-2xl text-gold whitespace-nowrap">${service.price}</span>
                   <ArrowUpRight className="w-5 h-5 text-gold shrink-0 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
                 </a>
