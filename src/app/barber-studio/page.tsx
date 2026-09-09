@@ -27,14 +27,20 @@ const services = [
 const packages = [
   {
     name: "Paquete 1", price: 150,
+    subtitle: "Corte First Class",
+    description: "La entrada al mundo Premium",
     items: ["Corte Personalizado", "Lavado de Cabello", "Peinado con Productos Premium", "Lociones al finalizar"],
   },
   {
     name: "Paquete 2", price: 300,
+    subtitle: "Ritual Caballero",
+    description: "El favorito para el mantenimiento semanal",
     items: ["Corte Personalizado", "Arreglo de barba", "Vapor de Ozono", "Lavado de cabello", "Masaje relajante", "Peinados con productos Premium", "Loción al finalizar"],
   },
   {
     name: "Paquete 3", price: 350,
+    subtitle: "Premium Black",
+    description: "Limpieza y Estilo",
     items: ["Corte y barba Personalizado", "Mascarilla negra", "Exfoliación facial", "Vapor Ozono", "Lavado de Cabello", "Masaje relajante, cuello, hombros", "Peinado con productos premium", "Tinte de barba"],
   },
 ];
@@ -45,8 +51,8 @@ function bookingLink(name: string, price: number) {
 
 export default function BarberStudio() {
   return (
-    <main className="min-h-screen bg-brown-dark text-cream">
-      <header className="border-b border-gold/20">
+    <main className="min-h-screen bg-brown-dark text-cream pt-[69px]">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-gold/20 bg-brown-dark">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-6 flex items-center justify-between gap-4">
           <Link href="/" className="inline-flex items-center gap-2 text-sm text-cream/80 hover:text-gold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
             <ArrowLeft className="w-4 h-4" aria-hidden="true" /> Volver al inicio
@@ -93,9 +99,13 @@ export default function BarberStudio() {
         <section aria-labelledby="studio-packages" className="mt-16 sm:mt-24">
           <h2 id="studio-packages" className="font-serif text-3xl sm:text-4xl mb-8">Nuestros <span className="text-gold">Paquetes</span></h2>
           <div className="grid md:grid-cols-3 gap-5">
-            {packages.map((pack, i) => (
-              <article key={pack.name} className={`flex flex-col border p-6 sm:p-8 ${i === 2 ? "border-gold/60 bg-gradient-to-b from-brown-medium/70 to-brown-dark retro-glow" : "border-gold/25 bg-brown-medium/20"}`}>
-                <h3 className="font-serif text-2xl mb-4">{pack.name}</h3>
+            {packages.map((pack) => (
+              <article key={pack.name} className="flex flex-col border p-6 sm:p-8 border-gold/60 bg-gradient-to-b from-brown-medium/70 to-brown-dark retro-glow transition-shadow">
+                <div className="mb-6 md:min-h-40">
+                  <h3 className="font-serif text-3xl sm:text-4xl font-bold leading-tight mb-3">{pack.name}</h3>
+                  <p className="font-serif text-xl sm:text-2xl text-gold leading-snug mb-2">{pack.subtitle}</p>
+                  <p className="text-sm text-cream/70 leading-relaxed">{pack.description}</p>
+                </div>
                 <p className="text-gold font-serif text-4xl mb-7">${pack.price} <span className="font-sans text-xs text-cream/60">MXN</span></p>
                 <ul className="space-y-4 mb-9">
                   {pack.items.map(item => (
