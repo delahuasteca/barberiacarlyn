@@ -95,7 +95,7 @@ export default function BarberStudio() {
           <div className="grid md:grid-cols-3 gap-5">
             {packages.map((pack, i) => (
               <article key={pack.name} className={`flex flex-col border p-6 sm:p-8 ${i === 2 ? "border-gold/60 bg-gradient-to-b from-brown-medium/70 to-brown-dark retro-glow" : "border-gold/25 bg-brown-medium/20"}`}>
-                <h1 className="font-serif text-2xl mb-4">{pack.name}</h1>
+                <h3 className="font-serif text-2xl mb-4">{pack.name}</h3>
                 <p className="text-gold font-serif text-4xl mb-7">${pack.price} <span className="font-sans text-xs text-cream/60">MXN</span></p>
                 <ul className="space-y-4 mb-9">
                   {pack.items.map(item => (
