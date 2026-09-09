@@ -7,7 +7,7 @@ import BrandLogo from "@/components/BrandLogo";
 
 export const metadata: Metadata = {
   title: "Barber Studio Carlyn | Elite Premium",
-  description: "Servicios Elite Premium y paquetes de Barber Studio Carlyn. Agenda con Carlyn por WhatsApp.",
+  description: "Servicios Elite Premium y Paquetes de Barber Studio Carlyn. Agenda con Carlyn por WhatsApp.",
   robots: { index: false, follow: false },
   openGraph: {
     title: "Barber Studio Carlyn",
