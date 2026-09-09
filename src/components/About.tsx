@@ -14,11 +14,11 @@ const features = [
   {
     icon: Clock,
     title: "Tu Tiempo Vale",
-    description: "Sistema de citas puntuales. Sin esperas, sin demoras.",
+    description: "Sin demoras, atención personalizada.",
   },
   {
     icon: Users,
-    title: "Ambiente VIP",
+    title: "Ambientes pensados en Tí",
     description: "Un espacio exclusivo donde cada detalle está pensado para ti.",
   },
   {
