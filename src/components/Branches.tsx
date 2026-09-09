@@ -18,7 +18,7 @@ const branches = [
     address: "Carretera Nacional México-Tampico Km 215 4, Santa Irene, 43000 Huejutla de Reyes, Hgo.",
     phone: null,
     barber: "Chucky Barber",
-    hours: "Jueves a martes: 9:00 AM - 8:00 PM",
+    hours: "Martes a Jueves: 9:00 AM - 8:00 PM",
     featured: false,
   },
   {
