@@ -75,15 +75,13 @@ export default function Navbar() {
 
             {/* Botón CTA */}
             <motion.a
-              href="https://wa.me/521234567890?text=Hola%2C%20quiero%20agendar%20una%20cita%20en%20Barbería%20Carlyn%20VIP"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/barber-studio"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
               className="hidden md:flex items-center gap-2 bg-gold/10 border border-gold/40 text-gold px-5 py-2.5 text-sm tracking-wider uppercase hover:bg-gold hover:text-brown-dark transition-all duration-300"
             >
-              Agendar Cita
+              Agenda con Carlyn
             </motion.a>
 
             {/* Botón del menú móvil */}
@@ -125,15 +123,13 @@ export default function Navbar() {
               </motion.a>
             ))}
             <motion.a
-              href="https://wa.me/521234567890?text=Hola%2C%20quiero%20agendar%20una%20cita%20en%20Barbería%20Carlyn%20VIP"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/barber-studio"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
               className="mt-4 bg-gold text-brown-dark px-8 py-3 text-lg tracking-wider uppercase font-bold hover:bg-gold-light transition-colors"
             >
-              Agendar Cita
+              Agenda con Carlyn
             </motion.a>
           </motion.div>
         )}

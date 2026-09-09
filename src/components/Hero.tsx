@@ -95,13 +95,11 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="https://wa.me/521234567890?text=Hola%2C%20quiero%20agendar%20una%20cita%20en%20Barbería%20Carlyn%20VIP"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/barber-studio"
             className="group relative bg-gold text-brown-dark px-10 py-4 text-sm tracking-[0.2em] uppercase font-bold overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-gold/20"
           >
             <span className="relative z-10 group-hover:text-brown-dark transition-colors">
-              Agenda tu Cita
+              Agenda con Carlyn
             </span>
             <div className="absolute inset-0 bg-gold-light transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
           </a>

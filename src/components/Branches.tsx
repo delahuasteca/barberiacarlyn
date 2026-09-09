@@ -2,13 +2,12 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { MapPin, Phone, Clock, ExternalLink, UserRound, CalendarX } from "lucide-react";
+import { MapPin, Clock, ExternalLink, UserRound, CalendarX } from "lucide-react";
 
 const branches = [
   {
     name: "Barbería Carlyn — Sucursal Aviación Civil",
     address: "Adolfo López Mateos 33, Aviación Civil, 43000 Huejutla de Reyes, Hgo.",
-    phone: "+52 771 261 3445",
     barber: "Jael",
     hours: "Lunes a sábado: 9:00 AM - 8:00 PM",
     featured: true,
@@ -16,7 +15,6 @@ const branches = [
   {
     name: "Barbería Carlyn — Sucursal Ex-Glorieta",
     address: "Carretera Nacional México-Tampico Km 215 4, Santa Irene, 43000 Huejutla de Reyes, Hgo.",
-    phone: null,
     barber: "Chucky Barber",
     hours: "Martes a Jueves: 9:00 AM - 8:00 PM",
     featured: false,
@@ -24,7 +22,6 @@ const branches = [
   {
     name: "Barbería Carlyn — Sucursal Tecoluco",
     address: "Huejutla Tamazunchale 5 de Mayo, 43000 Huejutla de Reyes, Hgo.",
-    phone: null,
     barber: "Johan",
     hours: "Lunes a sábado: 9:00 AM - 8:00 PM",
     featured: false,
@@ -107,10 +104,6 @@ export default function Branches() {
                   <MapPin className="w-4 h-4 text-gold/60 mt-1 shrink-0" />
                   <span className="text-cream/60 text-sm">{branch.address}</span>
                 </div>
-                {branch.phone && <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-gold/60 shrink-0" />
-                  <a href={`tel:${branch.phone.replace(/\s/g, "")}`} className="text-cream/60 text-sm hover:text-gold">{branch.phone}</a>
-                </div>}
                 <div className="flex items-center gap-3">
                   <Clock className="w-4 h-4 text-gold/60 shrink-0" />
                   <span className="text-cream/60 text-sm">{branch.hours}</span>

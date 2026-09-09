@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
+import { whatsappLink } from "@/lib/whatsapp";
 
 export default function WhatsAppFloat() {
-  const whatsappUrl =
-    "https://wa.me/521234567890?text=Hola%2C%20quiero%20agendar%20una%20cita%20en%20Barbería%20Carlyn%20VIP";
+  const whatsappUrl = whatsappLink();
 
   return (
     <motion.a

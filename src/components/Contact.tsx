@@ -3,13 +3,13 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { MessageCircle, Phone, MapPin, Clock, Send } from "lucide-react";
+import { whatsappLink } from "@/lib/whatsapp";
 
 export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const whatsappUrl =
-    "https://wa.me/521234567890?text=Hola%2C%20quiero%20agendar%20una%20cita%20en%20Barbería%20Carlyn%20VIP";
+  const whatsappUrl = whatsappLink();
 
   return (
     <section id="contact" className="relative py-24 sm:py-32 overflow-hidden">
