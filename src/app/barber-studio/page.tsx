@@ -26,16 +26,16 @@ const services = [
 
 const packages = [
   {
-    name: "Paquete 1 Corte First Class (La entrada al mundo Premium)", price: 150,
-    items: ["Corte Personalizado", "Lavado de Cabello", "Peinado con Productos Premium", "Lociones al finalizar"],
+    name: "Paquete 1, Corte First Class, (La entrada al mundo Premium)", price: 150,
+    items: ["Corte Personalizado", "Lavado de Cabello", "Peinado con Productos Premium", "Loción al finalizar"],
   },
   {
-    name: "Paquete 2", price: 300,
+    name: "Paquete 2, Ritual Caballero, El favorito para el mantenimiento semanal", price: 300,
     items: ["Corte Personalizado", "Arreglo de barba", "Vapor de Ozono", "Lavado de cabello", "Masaje relajante", "Peinados con productos Premium", "Loción al finalizar"],
   },
   {
-    name: "Paquete 3", price: 350,
-    items: ["Corte y barba Personalizado", "Mascarilla negra", "Exfoliación facial", "Vapor Ozono", "Lavado de Cabello", "Masaje relajante, cuello, hombros", "Peinado con productos premium", "Tinte de barba"],
+    name: "Paquete 3, Premium Black, Limpieza y Estilo", price: 350,
+    items: ["Corte y Barba Personalizado", "Mascarilla negra", "Exfoliación facial", "Vapor Ozono", "Lavado de Cabello", "Masaje relajante, cuello, hombros", "Peinado con productos premium", "Tinte de barba"],
   },
 ];
 
