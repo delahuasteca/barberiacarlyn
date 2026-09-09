@@ -2,52 +2,14 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Scissors, SprayCan, Crown, Flame, Star, Droplets } from "lucide-react";
+import { Scissors, Crown, Flame, Star } from "lucide-react";
 
 const services = [
-  {
-    icon: Scissors,
-    name: "Corte Clásico",
-    description: "Corte tradicional con técnicas modernas. Incluye lavado y estilizado.",
-    price: "$120",
-    popular: false,
-  },
-  {
-    icon: Flame,
-    name: "Corte + Barba",
-    description: "Corte de cabello premium más perfilado y diseño de barba con navaja.",
-    price: "$180",
-    popular: true,
-  },
-  {
-    icon: Crown,
-    name: "Servicio VIP Completo",
-    description:
-      "Corte, barba, tratamiento capilar, toalla caliente, bebida premium y masaje.",
-    price: "$350",
-    popular: true,
-  },
-  {
-    icon: SprayCan,
-    name: "Diseño & Líneas",
-    description: "Diseños personalizados, líneas y figuras artísticas con máquina.",
-    price: "$80",
-    popular: false,
-  },
-  {
-    icon: Droplets,
-    name: "Tratamiento Capilar",
-    description: "Hidratación profunda, mascarilla y masaje craneal relajante.",
-    price: "$150",
-    popular: false,
-  },
-  {
-    icon: Star,
-    name: "Corte Infantil",
-    description: "Corte especial para los más pequeños. Paciencia y diversión garantizada.",
-    price: "$90",
-    popular: false,
-  },
+  { icon: Scissors, name: "Corte de Cabello Básico", price: "$100", popular: false },
+  { icon: Star, name: "Corte de Cabello Escolar", price: "$100", popular: false },
+  { icon: Crown, name: "Corte de Cabello Personalizado", price: "$120", popular: false },
+  { icon: Flame, name: "Corte de Cabello + Arreglo de Barba", price: "$150", popular: false },
+  { icon: Scissors, name: "Arreglo de Barba", price: "$100", popular: false },
 ];
 
 export default function Services() {
@@ -112,12 +74,9 @@ export default function Services() {
                 <service.icon className="w-10 h-10 text-gold group-hover:scale-110 transition-transform duration-300" />
               </div>
 
-              <h3 className="font-serif text-xl font-semibold text-cream mb-2">
+              <h3 className="font-serif text-xl font-semibold text-cream mb-6">
                 {service.name}
               </h3>
-              <p className="text-cream/50 text-sm font-light leading-relaxed mb-6">
-                {service.description}
-              </p>
 
               <div className="flex items-end justify-between">
                 <span className="text-3xl font-serif font-bold text-gold">

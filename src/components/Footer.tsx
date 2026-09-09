@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Scissors, MapPin, Phone, ArrowUp } from "lucide-react";
+import { MapPin, Phone, ArrowUp } from "lucide-react";
+
+import BrandLogo from "@/components/BrandLogo";
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -31,17 +33,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-10">
           {/* Marca */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <Scissors className="w-6 h-6 text-gold rotate-[-30deg]" />
-              <div className="flex flex-col">
-                <span className="font-serif text-xl font-bold text-cream tracking-wide">
-                  CARLYN
-                </span>
-                <span className="text-[10px] tracking-[0.3em] text-gold uppercase -mt-1">
-                  VIP Barbería
-                </span>
-              </div>
-            </div>
+            <BrandLogo className="w-60 mb-6" />
             <p className="text-cream/40 text-sm font-light leading-relaxed max-w-sm mb-6">
               Donde el estilo no se improvisa… se diseña. Más que una barbería,
               una experiencia premium para el caballero moderno.

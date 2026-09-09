@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
+import BrandLogo from "@/components/BrandLogo";
+
 export default function Hero() {
   return (
     <section
@@ -41,24 +43,10 @@ export default function Hero() {
           <div className="h-px w-16 bg-gradient-to-l from-transparent to-gold/60" />
         </motion.div>
 
-        {/* Título principal */}
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="font-serif text-5xl sm:text-6xl md:text-8xl font-bold text-cream mb-2 leading-tight"
-        >
-          BARBERÍA
-        </motion.h1>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.7 }}
-          className="font-serif text-6xl sm:text-7xl md:text-9xl font-bold text-gradient-gold mb-4 leading-tight"
-        >
-          CARLYN
-        </motion.h1>
+        {/* Identidad principal */}
+        <h1 className="mb-6">
+          <BrandLogo className="w-full max-w-[383px] mx-auto" preload />
+        </h1>
 
         {/* Insignia VIP */}
         <motion.div

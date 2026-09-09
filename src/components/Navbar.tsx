@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Scissors } from "lucide-react";
+import { Menu, X } from "lucide-react";
+
+import BrandLogo from "@/components/BrandLogo";
 
 const navLinks = [
   { label: "Inicio", href: "#hero" },
@@ -43,21 +45,11 @@ export default function Navbar() {
               className="flex items-center gap-3 group"
               whileHover={{ scale: 1.05 }}
             >
-              <div className="relative">
-                <Scissors className="w-7 h-7 text-gold rotate-[-30deg] group-hover:rotate-0 transition-transform duration-500" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif text-xl font-bold text-cream tracking-wide">
-                  CARLYN
-                </span>
-                <span className="text-[10px] tracking-[0.3em] text-gold uppercase -mt-1">
-                  VIP Barbería
-                </span>
-              </div>
+              <BrandLogo className="w-36 lg:w-40" />
             </motion.a>
 
             {/* Navegación de escritorio */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden lg:flex items-center gap-8">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
@@ -79,7 +71,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="hidden md:flex items-center gap-2 bg-gold/10 border border-gold/40 text-gold px-5 py-2.5 text-sm tracking-wider uppercase hover:bg-gold hover:text-brown-dark transition-all duration-300"
+              className="hidden lg:flex items-center gap-2 bg-gold/10 border border-gold/40 text-gold px-5 py-2.5 text-sm tracking-wider uppercase hover:bg-gold hover:text-brown-dark transition-all duration-300"
             >
               Agenda con Carlyn
             </motion.a>
@@ -87,7 +79,7 @@ export default function Navbar() {
             {/* Botón del menú móvil */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-cream hover:text-gold transition-colors"
+              className="lg:hidden text-cream hover:text-gold transition-colors"
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6" />

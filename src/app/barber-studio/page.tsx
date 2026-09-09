@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Check, Scissors } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import { whatsappLink } from "@/lib/whatsapp";
+
+import BrandLogo from "@/components/BrandLogo";
 
 export const metadata: Metadata = {
   title: "Barber Studio Carlyn | Elite Premium",
@@ -55,7 +57,7 @@ export default function BarberStudio() {
 
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-16 sm:pb-24">
         <div className="text-center py-16 sm:py-24">
-          <Scissors className="w-9 h-9 text-gold mx-auto mb-6" aria-hidden="true" />
+          <BrandLogo className="w-56 sm:w-72 mx-auto mb-8" preload />
           <p className="text-gold text-xs tracking-[0.3em] uppercase mb-5">Una experiencia a tu medida</p>
           <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight">
             BARBER STUDIO <span className="text-gradient-gold">CARLYN</span>
