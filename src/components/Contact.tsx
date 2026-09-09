@@ -84,7 +84,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-cream font-serif font-semibold mb-1">Horario</h4>
-                  <p className="text-cream/50 text-sm">Lun - Dom: 8:00 AM - 9:00 PM</p>
+                  <p className="text-cream/50 text-sm">Lunes a sábado: 9:00 AM - 8:00 PM</p>
                 </div>
               </div>
 

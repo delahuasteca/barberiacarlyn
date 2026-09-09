@@ -2,32 +2,31 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { MapPin, Phone, Clock, ExternalLink } from "lucide-react";
+import { MapPin, Phone, Clock, ExternalLink, UserRound, CalendarX } from "lucide-react";
 
 const branches = [
   {
-    name: "Carlyn VIP — Sucursal Principal",
+    name: "Barbería Carlyn — Sucursal Aviación Civil",
     address: "Adolfo López Mateos 33, Aviación Civil, 43000 Huejutla de Reyes, Hgo.",
     phone: "+52 771 261 3445",
-    hours: "Lun - Dom: 8:00 AM - 9:00 PM",
-    mapUrl:
-      "https://www.google.com/maps/search/Barberia+Carlyn+Adolfo+Lopez+Mateos+33+Huejutla",
+    barber: "Jael",
+    hours: "Lunes a sábado: 9:00 AM - 8:00 PM",
     featured: true,
   },
   {
-    name: "Carlyn VIP — Sucursal 2",
-    address: "Dirección por confirmar",
-    phone: "+52 123 456 7891",
-    hours: "Lun - Dom: 9:00 AM - 8:00 PM",
-    mapUrl: "#",
+    name: "Barbería Carlyn — Sucursal Ex-Glorieta",
+    address: "Carretera Nacional México-Tampico Km 215 4, Santa Irene, 43000 Huejutla de Reyes, Hgo.",
+    phone: null,
+    barber: "Chucky Barber",
+    hours: "Jueves a martes: 9:00 AM - 8:00 PM",
     featured: false,
   },
   {
-    name: "Carlyn VIP — Sucursal 3",
-    address: "Dirección por confirmar",
-    phone: "+52 123 456 7892",
-    hours: "Lun - Dom: 9:00 AM - 8:00 PM",
-    mapUrl: "#",
+    name: "Barbería Carlyn — Sucursal Tecoluco",
+    address: "Huejutla Tamazunchale 5 de Mayo, 43000 Huejutla de Reyes, Hgo.",
+    phone: null,
+    barber: "Johan",
+    hours: "Lunes a sábado: 9:00 AM - 8:00 PM",
     featured: false,
   },
 ];
@@ -76,7 +75,7 @@ export default function Branches() {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 * i }}
-              className={`relative p-8 transition-all duration-500 group ${
+              className={`relative flex flex-col p-8 transition-all duration-500 group ${
                 branch.featured
                   ? "bg-gradient-to-b from-brown-medium/60 to-brown-dark/60 border border-gold/30 retro-glow"
                   : "bg-brown-medium/30 border border-gold/10 hover:border-gold/20"
@@ -97,13 +96,21 @@ export default function Branches() {
 
               <div className="space-y-3 mb-6">
                 <div className="flex items-start gap-3">
+                  <UserRound className="w-4 h-4 text-gold/60 mt-1 shrink-0" aria-hidden="true" />
+                  <span className="text-cream/80 text-sm">Atendido por: <strong className="text-gold">{branch.barber}</strong></span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CalendarX className="w-4 h-4 text-gold/60 shrink-0" aria-hidden="true" />
+                  <span className="text-cream/80 text-sm">Sin cita previa</span>
+                </div>
+                <div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-gold/60 mt-1 shrink-0" />
                   <span className="text-cream/60 text-sm">{branch.address}</span>
                 </div>
-                <div className="flex items-center gap-3">
+                {branch.phone && <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-gold/60 shrink-0" />
-                  <span className="text-cream/60 text-sm">{branch.phone}</span>
-                </div>
+                  <a href={`tel:${branch.phone.replace(/\s/g, "")}`} className="text-cream/60 text-sm hover:text-gold">{branch.phone}</a>
+                </div>}
                 <div className="flex items-center gap-3">
                   <Clock className="w-4 h-4 text-gold/60 shrink-0" />
                   <span className="text-cream/60 text-sm">{branch.hours}</span>
@@ -111,10 +118,11 @@ export default function Branches() {
               </div>
 
               <a
-                href={branch.mapUrl}
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(branch.address)}`}
+                aria-label={`Ver ${branch.name} en Google Maps`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-gold text-sm hover:text-gold-light transition-colors group/link"
+                className="mt-auto inline-flex items-center gap-2 text-gold text-sm hover:text-gold-light transition-colors group/link"
               >
                 <span>Ver en Google Maps</span>
                 <ExternalLink className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
