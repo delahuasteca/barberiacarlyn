@@ -70,7 +70,7 @@ export default function Footer() {
                 { label: "Servicios", href: "#services" },
                 { label: "Sucursales", href: "#branches" },
                 { label: "Redes Sociales", href: "#social" },
-                { label: "Contacto", href: "#contact" },
+                { label: "Reseña", href: "#reviews" },
               ].map((link) => (
                 <li key={link.href}>
                   <a

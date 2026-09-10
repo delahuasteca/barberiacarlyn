@@ -4,7 +4,7 @@ import About from "@/components/About";
 import Services from "@/components/Services";
 import Branches from "@/components/Branches";
 import SocialFeed from "@/components/SocialFeed";
-import Contact from "@/components/Contact";
+import Reviews from "@/components/Reviews";
 import Footer from "@/components/Footer";
 import Script from "next/script";
 
@@ -18,7 +18,7 @@ export default function Home() {
         <Services />
         <Branches />
         <SocialFeed />
-        <Contact />
+        <Reviews />
       </main>
       <Footer />
       <Script

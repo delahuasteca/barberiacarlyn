@@ -12,7 +12,7 @@ const navLinks = [
   { label: "Servicios", href: "#services" },
   { label: "Sucursales", href: "#branches" },
   { label: "Redes", href: "#social" },
-  { label: "Contacto", href: "#contact" },
+  { label: "Reseña", href: "#reviews" },
 ];
 
 export default function Navbar() {
