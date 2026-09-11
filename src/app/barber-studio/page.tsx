@@ -74,6 +74,9 @@ export default function BarberStudio() {
           <div className="retro-line mx-auto my-7" />
           <p className="text-cream/70 max-w-lg mx-auto leading-relaxed">Al elegir tu servicio o paquete se agenda directamente con Carlyn por medio de WhatsApp.</p>
         </div>
+        <div className="retro-line mx-auto my-7" />
+          <p className="text-cream/70 max-w-lg mx-auto leading-relaxed">Disfruta de una Bebida con el Servicio Solcitado.</p>
+        </div>
      
         <section aria-labelledby="elite-services">
           <div className="flex flex-wrap items-end justify-between gap-3 mb-7">
