@@ -26,7 +26,7 @@ const services = [
 
 const packages = [
   {
-    name: "Paquete 1", price: 150,
+    name: "Paquete 1", price: 250,
     subtitle: "Corte First Class",
     description: "La entrada al mundo Premium",
     items: ["Corte Personalizado", "Lavado de Cabello", "Peinado con Productos Premium", "Lociones al finalizar"],
