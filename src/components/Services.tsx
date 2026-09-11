@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Scissors, Crown, Flame, Star } from "lucide-react";
+import { Scissors, Crown, Flame, Star, ScanFace } from "lucide-react";
 
 const services = [
   { icon: Scissors, name: "Corte de Cabello Básico", price: "$100", popular: false },
@@ -10,6 +10,7 @@ const services = [
   { icon: Crown, name: "Corte de Cabello Personalizado", price: "$120", popular: false },
   { icon: Flame, name: "Corte de Cabello + Arreglo de Barba", price: "$150", popular: false },
   { icon: Scissors, name: "Arreglo de Barba", price: "$100", popular: false },
+  { icon: ScanFace, name: "Arreglo de Cejas", price: "$30", popular: false },
 ];
 
 export default function Services() {
