@@ -64,7 +64,7 @@ export default function BarberStudio() {
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-16 sm:pb-24">
         <div className="text-center py-16 sm:py-24">
           <BrandLogo className="w-56 sm:w-72 mx-auto mb-8" preload />
-          <p className="text-gold text-xs tracking-[0.3em] uppercase mb-5">Una experiencia a tu medida</p>
+          <p className="text-gold text-xs tracking-[0.3em] uppercase mb-5">Una experiencia PREMIUM a tu medida</p>
           <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight">
             BARBER STUDIO <span className="text-gradient-gold">CARLYN</span>
           </h1>
@@ -72,7 +72,10 @@ export default function BarberStudio() {
             Mejor Atención, Mayor Exclusividad, Mayor Privacidad
           </p>
           <div className="retro-line mx-auto my-7" />
-          <p className="text-cream/70 max-w-lg mx-auto leading-relaxed">Elige tu servicio o paquete y agenda directamente con Carlyn por WhatsApp.</p>
+          <p className="text-cream/70 max-w-lg mx-auto leading-relaxed">Al elegir tu servicio o paquete se agenda directamente con Carlyn por medio de WhatsApp.</p>
+        </div>
+         <div className="retro-line mx-auto my-7" />
+          <p className="text-cream/70 max-w-lg mx-auto leading-relaxed">Al elegir tu servicio o paquete se agenda directamente con Carlyn por medio de WhatsApp.</p>
         </div>
 
         <section aria-labelledby="elite-services">
