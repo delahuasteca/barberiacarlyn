@@ -63,7 +63,7 @@ export default function About() {
                 <span className="text-gradient-gold">una experiencia</span>
               </h2>
               <p className="text-cream/60 text-lg font-light leading-relaxed mb-6">
-                En <span className="text-gold font-medium">Barbería Carlyn VIP</span>,
+                En <span className="text-gold font-medium">Barbería Carlyn</span>,
                 cada cliente recibe más que un servicio: vive una experiencia a su altura.
                 Porque el estilo no se improvisa… se diseña con precisión, pasión y dedicación.
               </p>
