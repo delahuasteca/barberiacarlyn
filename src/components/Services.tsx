@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Scissors, Crown, Flame, Star, ScanFace } from "lucide-react";
+import { Scissors, Crown, Flame, Star, PocketKnife } from "lucide-react";
 
 const services = [
   { icon: Scissors, name: "Corte de Cabello Básico", price: "$100", popular: false },
