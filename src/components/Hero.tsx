@@ -72,7 +72,7 @@ export default function Hero() {
           Donde el estilo no se improvisa…{" "}
           <span className="text-gold italic">se diseña.</span>
           <br />
-          Una experiencia premium para el caballero moderno.
+          Una experiencia diseñada para el caballero moderno.
         </motion.p>
 
         {/* Botones de acción */}
