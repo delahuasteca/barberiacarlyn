@@ -71,7 +71,7 @@ export default function About() {
                 Contamos con un equipo de barberos profesionales que dominan las técnicas
                 más modernas del mercado. Desde fades impecables hasta diseños personalizados,
                 cada corte es una obra de arte. Disfruta de nuestro ambiente exclusivo con
-                pantallas deportivas, bebidas premium y la mejor compañía.
+                pantallas y la mejor compañía.
               </p>
               <div className="flex items-center gap-6">
                 <div className="text-center">
