@@ -45,7 +45,7 @@ export default function Services() {
           </h2>
           <p className="text-cream/50 font-light max-w-xl mx-auto">
             Cada servicio está diseñado para brindarte una experiencia única.
-            Calidad premium en cada detalle.
+            Calidad aplicada en cada detalle.
           </p>
         </motion.div>
 
