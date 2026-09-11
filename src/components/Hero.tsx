@@ -57,7 +57,7 @@ export default function Hero() {
         >
           <div className="h-px w-12 bg-gold/40" />
           <span className="text-gold text-sm sm:text-base tracking-[0.5em] uppercase font-light border border-gold/30 px-6 py-2">
-            VIP
+            VIVE LA EXPERIENCIA
           </span>
           <div className="h-px w-12 bg-gold/40" />
         </motion.div>
