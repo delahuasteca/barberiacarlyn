@@ -18,9 +18,9 @@ export const metadata: Metadata = {
 const services = [
   { name: "Corte de Cabello Básico", price: 150 },
   { name: "Corte de Cabello Escolar", price: 150 },
-  { name: "Corte de Cabello Personalizado Premium", price: 200 },
+  { name: "Corte de Cabello Personalizado Premium", price: 180 },
   { name: "Corte de Cabello Básico + Arreglo de Barba", price: 250 },
-  { name: "Corte de Cabello Personalizado + Arreglo de Barba", price: 300 },
+  { name: "Corte de Cabello Personalizado + Arreglo de Barba", price: 280 },
   { name: "Arreglo de Barba", price: 150 },
 ];
 
