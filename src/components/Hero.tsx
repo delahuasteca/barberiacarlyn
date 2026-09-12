@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 
 import BrandLogo from "@/components/BrandLogo";
 
@@ -11,15 +12,24 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Capas de fondo */}
-      <div className="absolute inset-0 bg-brown-dark" />
+      {/* Collage de las sucursales */}
+      <Image
+        src="/images/carlyn-sucursales-hero.png"
+        alt=""
+        fill
+        preload
+        sizes="100vw"
+        className="object-cover object-center scale-[1.02]"
+      />
+      <div className="absolute inset-0 bg-brown-dark/55" />
       <div
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0"
         style={{
           backgroundImage:
-            "radial-gradient(ellipse at 30% 50%, rgba(200,164,90,0.3) 0%, transparent 60%), radial-gradient(ellipse at 70% 30%, rgba(200,164,90,0.15) 0%, transparent 50%)",
+            "radial-gradient(ellipse at center, rgba(13,10,7,0.2) 0%, rgba(13,10,7,0.68) 70%, rgba(13,10,7,0.9) 100%), linear-gradient(to bottom, rgba(13,10,7,0.5) 0%, transparent 30%, rgba(13,10,7,0.72) 100%)",
         }}
       />
+      <div className="absolute inset-0 bg-gradient-to-r from-brown-dark/55 via-transparent to-brown-dark/55" />
 
       {/* Ornamentos decorativos de esquina */}
       <div className="absolute top-24 left-8 w-20 h-20 border-t border-l border-gold/20" />
@@ -28,7 +38,7 @@ export default function Hero() {
       <div className="absolute bottom-8 right-8 w-20 h-20 border-b border-r border-gold/20" />
 
       {/* Contenido */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto drop-shadow-[0_3px_18px_rgba(0,0,0,0.9)]">
         {/* Ornamento superior */}
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
