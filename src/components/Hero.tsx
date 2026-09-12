@@ -67,7 +67,7 @@ export default function Hero() {
         >
           <div className="h-px w-12 bg-gold/40" />
           <span className="text-gold text-sm sm:text-base tracking-[0.5em] uppercase font-light border border-gold/30 px-6 py-2">
-            VIP
+            VIVE LA EXPERIENCIA
           </span>
           <div className="h-px w-12 bg-gold/40" />
         </motion.div>
@@ -82,7 +82,7 @@ export default function Hero() {
           Donde el estilo no se improvisa…{" "}
           <span className="text-gold italic">se diseña.</span>
           <br />
-          Una experiencia premium para el caballero moderno.
+          Una experiencia diseñada para el caballero moderno.
         </motion.p>
 
         {/* Botones de acción */}

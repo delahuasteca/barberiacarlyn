@@ -63,7 +63,7 @@ export default function About() {
                 <span className="text-gradient-gold">una experiencia</span>
               </h2>
               <p className="text-cream/60 text-lg font-light leading-relaxed mb-6">
-                En <span className="text-gold font-medium">Barbería Carlyn VIP</span>,
+                En <span className="text-gold font-medium">Barbería Carlyn</span>,
                 cada cliente recibe más que un servicio: vive una experiencia a su altura.
                 Porque el estilo no se improvisa… se diseña con precisión, pasión y dedicación.
               </p>
@@ -71,7 +71,7 @@ export default function About() {
                 Contamos con un equipo de barberos profesionales que dominan las técnicas
                 más modernas del mercado. Desde fades impecables hasta diseños personalizados,
                 cada corte es una obra de arte. Disfruta de nuestro ambiente exclusivo con
-                pantallas deportivas, bebidas premium y la mejor compañía.
+                pantallas y la mejor compañía.
               </p>
               <div className="flex items-center gap-6">
                 <div className="text-center">
