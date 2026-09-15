@@ -12,7 +12,8 @@ type BranchReviews = {
   reviews: Review[];
 };
 
-// Completa los enlaces oficiales de cada sucursal. Vacíos usan la búsqueda en Maps.
+// Los enlaces vacíos usan el enlace oficial de Maps definido en branches.ts.
+// writeUrl permite añadir un enlace directo al formulario de evaluación.
 // Sustituye cada ejemplo por una reseña real y cambia isExample a false.
 // Las reseñas se editan aquí manualmente; no se sincronizan con Google.
 // Puedes agregar más objetos a reviews o dejar [] para mostrar el estado vacío.

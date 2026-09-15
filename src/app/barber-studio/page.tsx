@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, Star } from "lucide-react";
 import { whatsappLink } from "@/lib/whatsapp";
+import { studioMapsUrl } from "@/lib/branches";
 
 import BrandLogo from "@/components/BrandLogo";
 
@@ -122,6 +123,26 @@ export default function BarberStudio() {
               </article>
             ))}
           </div>
+        </section>
+
+        <section id="reviews" aria-labelledby="studio-reviews-title" className="mt-16 sm:mt-24 border border-gold/30 bg-brown-medium/30 p-7 sm:p-10 text-center scroll-mt-24">
+          <Star className="w-8 h-8 text-gold mx-auto mb-5" aria-hidden="true" />
+          <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Jacarandas · Reseñas</p>
+          <h2 id="studio-reviews-title" className="font-serif text-3xl sm:text-4xl mb-5">Evalúa tu experiencia en <span className="text-gold">Barber Studio Carlyn</span></h2>
+          <p className="text-cream/70 max-w-2xl mx-auto leading-relaxed mb-7">¿Ya nos visitaste en Jacarandas? Califica tu visita y cuéntanos cómo fue tu experiencia en Google Maps. Tu opinión nos ayuda a mejorar.</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+            <a href={studioMapsUrl} target="_blank" rel="noopener noreferrer"
+              aria-label="Abrir Barber Studio Carlyn Jacarandas en Google Maps para escribir una reseña (nueva pestaña)"
+              className="inline-flex items-center justify-center gap-2 bg-gold text-brown-dark px-5 py-4 text-sm font-bold hover:bg-gold-light transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
+              Evaluar en Google Maps <ArrowUpRight className="w-4 h-4 shrink-0" aria-hidden="true" />
+            </a>
+            <a href={studioMapsUrl} target="_blank" rel="noopener noreferrer"
+              aria-label="Ver ubicación y reseñas de Barber Studio Carlyn Jacarandas en Google Maps (nueva pestaña)"
+              className="inline-flex items-center gap-2 text-gold underline underline-offset-4 hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
+              Ver ubicación y reseñas <ArrowUpRight className="w-4 h-4 shrink-0" aria-hidden="true" />
+            </a>
+          </div>
+          <p className="text-sm text-cream/60 mt-6">En Google Maps, entra en “Reseñas” → “Escribir una reseña”.</p>
         </section>
 
         <div className="mt-16 pt-10 border-t border-gold/20 text-center">

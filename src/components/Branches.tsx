@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { MapPin, Clock, ExternalLink, UserRound, CalendarX } from "lucide-react";
 
-import { branches } from "@/lib/branches";
+import { branches, branchMapsLink } from "@/lib/branches";
 
 export default function Branches() {
   const ref = useRef(null);
@@ -89,7 +89,7 @@ export default function Branches() {
               </div>
 
               <a
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(branch.address)}`}
+                href={branchMapsLink(branch)}
                 aria-label={`Ver ${branch.name} en Google Maps`}
                 target="_blank"
                 rel="noopener noreferrer"
