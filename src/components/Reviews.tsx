@@ -37,7 +37,7 @@ export default function Reviews() {
           ))}
         </div>
         <p className="text-sm text-cream/60 text-center mt-6 leading-relaxed">
-          En Google Maps, selecciona la sucursal y entra en “Reseñas” → “Escribir una reseña”.
+          El botón abre el formulario para calificar y escribir tu reseña. Google puede pedirte iniciar sesión.
         </p>
 
         <div className="mt-16 border-t border-gold/20 pt-12" aria-labelledby="read-reviews-title">

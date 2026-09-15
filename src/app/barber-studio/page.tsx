@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Check, Star } from "lucide-react";
 import { whatsappLink } from "@/lib/whatsapp";
 import { studioMapsUrl } from "@/lib/branches";
+import { studioReviewUrl } from "@/lib/reviews";
 
 import BrandLogo from "@/components/BrandLogo";
 
@@ -131,7 +132,7 @@ export default function BarberStudio() {
           <h2 id="studio-reviews-title" className="font-serif text-3xl sm:text-4xl mb-5">Evalúa tu experiencia en <span className="text-gold">Barber Studio Carlyn</span></h2>
           <p className="text-cream/70 max-w-2xl mx-auto leading-relaxed mb-7">¿Ya nos visitaste en Jacarandas? Califica tu visita y cuéntanos cómo fue tu experiencia en Google Maps. Tu opinión nos ayuda a mejorar.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-            <a href={studioMapsUrl} target="_blank" rel="noopener noreferrer"
+            <a href={studioReviewUrl} target="_blank" rel="noopener noreferrer"
               aria-label="Abrir Barber Studio Carlyn Jacarandas en Google Maps para escribir una reseña (nueva pestaña)"
               className="inline-flex items-center justify-center gap-2 bg-gold text-brown-dark px-5 py-4 text-sm font-bold hover:bg-gold-light transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
               Evaluar en Google Maps <ArrowUpRight className="w-4 h-4 shrink-0" aria-hidden="true" />
@@ -142,7 +143,7 @@ export default function BarberStudio() {
               Ver ubicación y reseñas <ArrowUpRight className="w-4 h-4 shrink-0" aria-hidden="true" />
             </a>
           </div>
-          <p className="text-sm text-cream/60 mt-6">En Google Maps, entra en “Reseñas” → “Escribir una reseña”.</p>
+          <p className="text-sm text-cream/60 mt-6">El botón abre el formulario para calificar y escribir tu reseña. Google puede pedirte iniciar sesión.</p>
         </section>
 
         <div className="mt-16 pt-10 border-t border-gold/20 text-center">
