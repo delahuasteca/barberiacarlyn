@@ -17,13 +17,12 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Barbería Carlyn VIP | Estilo y Tradición",
+  title: "Barbería Carlyn Huejutla | Estilo y Tradición",
   description:
-    "Barbería Carlyn VIP - Donde el estilo no se improvisa, se diseña. Cortes premium, experiencia VIP. Agenda tu cita por WhatsApp.",
+    "Barbería Carlyn Huejutla - Donde el estilo no se improvisa, se diseña. Cortes premium, experiencia VIP. Agenda tu cita por WhatsApp.",
   keywords: [
     "barbería",
     "Carlyn",
-    "VIP",
     "cortes de cabello",
     "peluquería de hombres",
     "barbero",
