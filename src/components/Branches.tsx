@@ -2,9 +2,10 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { MapPin, Clock, ExternalLink, UserRound, CalendarX } from "lucide-react";
+import { MapPin, Clock, ExternalLink, UserRound, CalendarX, Star } from "lucide-react";
 
 import { branches, branchMapsLink } from "@/lib/branches";
+import { branchReviews } from "@/lib/reviews";
 
 export default function Branches() {
   const ref = useRef(null);
@@ -88,16 +89,29 @@ export default function Branches() {
                 </div>
               </div>
 
-              <a
-                href={branchMapsLink(branch)}
-                aria-label={`Ver ${branch.name} en Google Maps`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center gap-2 text-gold text-sm hover:text-gold-light transition-colors group/link"
-              >
-                <span>Ver en Google Maps</span>
-                <ExternalLink className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-              </a>
+              <div className="mt-auto pt-5 border-t border-gold/15 flex flex-col gap-2.5">
+                <a
+                  href={branchMapsLink(branch)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Cómo llegar a ${branch.name} en Google Maps (abrir en nueva pestaña)`}
+                  className="w-full min-h-[52px] px-5 py-3.5 bg-gold text-brown-dark font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2 shadow-md hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+                >
+                  <MapPin className="w-4 h-4 shrink-0 text-brown-dark" aria-hidden="true" />
+                  <span>CÓMO LLEGAR</span>
+                </a>
+
+                <a
+                  href={branchReviews[branch.id]?.writeUrl || branchMapsLink(branch)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Ver y calificar reseñas de ${branch.name} en Google Maps (abrir en nueva pestaña)`}
+                  className="w-full min-h-[44px] px-4 py-2.5 border border-gold/30 text-gold text-xs tracking-wider uppercase font-semibold flex items-center justify-center gap-2 hover:bg-gold/10 hover:border-gold/60 hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+                >
+                  <Star className="w-3.5 h-3.5 shrink-0 text-gold fill-gold/20" aria-hidden="true" />
+                  <span>VER RESEÑAS</span>
+                </a>
+              </div>
             </motion.div>
           ))}
         </div>

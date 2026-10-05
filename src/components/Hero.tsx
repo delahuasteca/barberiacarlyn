@@ -15,7 +15,7 @@ export default function Hero() {
       {/* Collage de las sucursales */}
       <Image
         src="/images/carlyn-sucursales-hero.png"
-        alt=""
+        alt="Barbería Carlyn en Huejutla de Reyes - Sucursales y Barber Studio"
         fill
         preload
         sizes="100vw"
@@ -56,6 +56,7 @@ export default function Hero() {
         {/* Identidad principal */}
         <h1 className="mb-6">
           <BrandLogo className="w-full max-w-[383px] mx-auto" preload />
+          <span className="sr-only">Barbería Carlyn en Huejutla de Reyes</span>
         </h1>
 
         {/* Insignia VIP */}
