@@ -210,7 +210,7 @@ export default function BarberStudioJacarandasPage() {
                 </a>
 
                 <a
-                  href={whatsappLink("Hola Carlyn, deseo agendar una cita en BARBER STUDIO CARLYN VIP Jacarandas.")}
+                  href={whatsappLink("Hola Carlyn, deseo agendar una cita en BARBER STUDIO CARLYN Jacarandas.")}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Agendar con Carlyn por WhatsApp"
@@ -227,7 +227,7 @@ export default function BarberStudioJacarandasPage() {
                 <div className="relative aspect-[4/5] w-full overflow-hidden bg-brown-dark/80">
                   <Image
                     src="/images/sucursales/jacarandas/Jacarandas.png"
-                    alt="Sesión exclusiva de cuidado de barba con vapor de ozono en Barber Studio Carlyn VIP Jacarandas"
+                    alt="Sesión exclusiva de cuidado de barba con vapor de ozono en Barber Studio Carlyn Jacarandas"
                     fill
                     priority
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
@@ -236,7 +236,7 @@ export default function BarberStudioJacarandasPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-brown-dark/85 via-transparent to-transparent opacity-60" />
                   <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs">
                     <span className="bg-brown-dark/90 text-gold border border-gold/40 px-2.5 py-1 text-[11px] font-semibold tracking-wider uppercase backdrop-blur-sm">
-                      Ritual VIP con Vapor de Ozono
+                      Ritual con Vapor de Ozono
                     </span>
                     <span className="text-cream/90 text-[11px] font-medium bg-brown-dark/70 px-2 py-0.5 border border-gold/20">
                       Jacarandas
@@ -273,12 +273,12 @@ export default function BarberStudioJacarandasPage() {
           </div>
         </section>
 
-        {/* GALERÍA DE ESPACIO Y EXPERIENCIA VIP */}
+        {/* GALERÍA DE ESPACIO Y EXPERIENCIA PREMIUM */}
         <section aria-labelledby="studio-gallery-title" className="space-y-8">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 text-gold text-xs tracking-[0.3em] uppercase mb-2">
               <Camera className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>Fotos Reales del Studio VIP</span>
+              <span>Fotos Reales del Studio Premium</span>
             </div>
             <h2 id="studio-gallery-title" className="font-serif text-3xl sm:text-4xl text-cream">
               Espacio y Experiencia en <span className="text-gradient-gold">Jacarandas</span>
@@ -300,7 +300,7 @@ export default function BarberStudioJacarandasPage() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <span className="absolute top-2.5 left-2.5 bg-brown-dark/90 text-gold border border-gold/30 px-2 py-0.5 text-[10px] uppercase tracking-wider font-semibold backdrop-blur-sm">
-                  Ritual VIP
+                  Ritual Premium
                 </span>
               </div>
               <figcaption className="p-3 text-left">
@@ -317,14 +317,14 @@ export default function BarberStudioJacarandasPage() {
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-brown-dark/60">
                 <Image
                   src="/images/sucursales/jacarandas/Jacarandas.jpeg"
-                  alt="Entorno residencial y ubicación privada de Barber Studio Carlyn VIP en la colonia Jacarandas, Huejutla"
+                  alt="Entorno residencial y ubicación privada de Barber Studio Carlyn premiun en la colonia Jacarandas, Huejutla"
                   fill
                   sizes="(max-width: 640px) 100vw, 50vw"
                   loading="lazy"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <span className="absolute top-2.5 left-2.5 bg-brown-dark/90 text-gold border border-gold/30 px-2 py-0.5 text-[10px] uppercase tracking-wider font-semibold backdrop-blur-sm">
-                  Ubicación VIP
+                  Ubicación Premium
                 </span>
               </div>
               <figcaption className="p-3 text-left">
