@@ -151,7 +151,7 @@ export default function BarberStudioJacarandasPage() {
           </Link>
           <div className="flex items-center gap-3">
             <span className="hidden sm:inline-block text-[11px] text-gold uppercase tracking-[0.2em] font-semibold border border-gold/30 px-3 py-1">
-              Studio VIP · Jacarandas
+              Studio Premium · Jacarandas
             </span>
             <Link href="/" aria-label="Ir a página de inicio">
               <BrandLogo className="w-28 sm:w-36" />
@@ -172,7 +172,7 @@ export default function BarberStudioJacarandasPage() {
             id="studio-hero-title"
             className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-cream max-w-4xl mx-auto leading-tight"
           >
-            Barber Studio Carlyn VIP en <span className="text-gradient-gold">Jacarandas</span>
+            Barber Studio Carlyn en <span className="text-gradient-gold">Jacarandas</span>
           </h1>
 
           <p className="text-gold font-serif text-lg sm:text-2xl max-w-2xl mx-auto mt-4">
@@ -250,7 +250,7 @@ export default function BarberStudioJacarandasPage() {
           <div className="text-center mb-10">
             <span className="text-gold text-xs tracking-[0.3em] uppercase">Rituales Completos</span>
             <h2 id="packages-title" className="font-serif text-3xl sm:text-4xl text-cream mt-2">
-              Nuestros <span className="text-gradient-gold">Paquetes VIP</span>
+              Nuestros <span className="text-gradient-gold">Paquetes Premium</span>
             </h2>
             <p className="text-cream/60 text-sm max-w-xl mx-auto mt-2">
               Experiencias integrales de corte, cuidado de barba y tratamiento facial.
@@ -365,7 +365,7 @@ export default function BarberStudioJacarandasPage() {
               <span>Preguntas Frecuentes</span>
             </div>
             <h2 id="studio-faq-title" className="font-serif text-3xl sm:text-4xl text-cream mt-2">
-              Dudas sobre Barber Studio Carlyn VIP
+              Dudas sobre Barber Studio Carlyn Premium
             </h2>
           </div>
 
@@ -422,7 +422,7 @@ export default function BarberStudioJacarandasPage() {
 
       {/* Footer minimalista */}
       <footer className="border-t border-gold/15 bg-brown-dark mt-16 py-8 text-center text-xs text-cream/40">
-        <p>&copy; {new Date().getFullYear()} Barber Studio Carlyn VIP. Huejutla de Reyes, Hidalgo.</p>
+        <p>&copy; {new Date().getFullYear()} Barber Studio Carlyn Premium. Huejutla de Reyes, Hidalgo.</p>
         <p className="mt-1">
           <Link href="/" className="text-gold hover:underline">Inicio</Link> · 
           <a href={studioMapsUrl} target="_blank" rel="noopener noreferrer" className="text-gold hover:underline ml-2">Google Maps</a>
