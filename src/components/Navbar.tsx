@@ -67,7 +67,7 @@ export default function Navbar() {
 
             {/* Botón CTA */}
             <motion.a
-              href="/barber-studio"
+              href="/barber-studio-jacarandas-huejutla"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
