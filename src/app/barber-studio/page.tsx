@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Check, Star } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, Star, MapPin } from "lucide-react";
 import { whatsappLink } from "@/lib/whatsapp";
 import { studioMapsUrl } from "@/lib/branches";
 import { studioReviewUrl } from "@/lib/reviews";
@@ -131,16 +131,27 @@ export default function BarberStudio() {
           <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Jacarandas · Reseñas</p>
           <h2 id="studio-reviews-title" className="font-serif text-3xl sm:text-4xl mb-5">Evalúa tu experiencia en <span className="text-gold">Barber Studio Carlyn</span></h2>
           <p className="text-cream/70 max-w-2xl mx-auto leading-relaxed mb-7">¿Ya nos visitaste en Jacarandas? Califica tu visita y cuéntanos cómo fue tu experiencia en Google Maps. Tu opinión nos ayuda a mejorar.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
-            <a href={studioReviewUrl} target="_blank" rel="noopener noreferrer"
-              aria-label="Abrir Barber Studio Carlyn Jacarandas en Google Maps para escribir una reseña (nueva pestaña)"
-              className="inline-flex items-center justify-center gap-2 bg-gold text-brown-dark px-5 py-4 text-sm font-bold hover:bg-gold-light transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
-              Evaluar en Google Maps <ArrowUpRight className="w-4 h-4 shrink-0" aria-hidden="true" />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
+            <a
+              href={studioMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Cómo llegar a Barber Studio Carlyn Jacarandas en Google Maps (abrir en nueva pestaña)"
+              className="w-full sm:w-auto min-h-[52px] px-8 py-3.5 bg-gold text-brown-dark font-bold text-sm tracking-wider uppercase inline-flex items-center justify-center gap-2 shadow-md hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+            >
+              <MapPin className="w-4 h-4 shrink-0 text-brown-dark" aria-hidden="true" />
+              <span>CÓMO LLEGAR</span>
             </a>
-            <a href={studioMapsUrl} target="_blank" rel="noopener noreferrer"
-              aria-label="Ver ubicación y reseñas de Barber Studio Carlyn Jacarandas en Google Maps (nueva pestaña)"
-              className="inline-flex items-center gap-2 text-gold underline underline-offset-4 hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
-              Ver ubicación y reseñas <ArrowUpRight className="w-4 h-4 shrink-0" aria-hidden="true" />
+
+            <a
+              href={studioReviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Ver y calificar reseñas de Barber Studio Carlyn Jacarandas en Google Maps (abrir en nueva pestaña)"
+              className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 border border-gold/40 text-gold text-xs tracking-wider uppercase font-semibold inline-flex items-center justify-center gap-2 hover:bg-gold/10 hover:border-gold/60 hover:text-cream active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+            >
+              <Star className="w-3.5 h-3.5 shrink-0 text-gold fill-gold/20" aria-hidden="true" />
+              <span>VER RESEÑAS</span>
             </a>
           </div>
           <p className="text-sm text-cream/60 mt-6">El botón abre el formulario para calificar y escribir tu reseña. Google puede pedirte iniciar sesión.</p>
