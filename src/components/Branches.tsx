@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
 import { MapPin, Clock, ExternalLink, UserRound, CalendarX, Star } from "lucide-react";
 
 import { branches, branchMapsLink } from "@/lib/branches";
@@ -111,6 +112,13 @@ export default function Branches() {
                   <Star className="w-3.5 h-3.5 shrink-0 text-gold fill-gold/20" aria-hidden="true" />
                   <span>VER RESEÑAS</span>
                 </a>
+
+                <Link
+                  href={`/barberia-huejutla-${branch.id}`}
+                  className="mt-1 text-center text-xs text-gold/75 hover:text-gold transition-colors tracking-wide underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-gold py-1"
+                >
+                  Ver detalles de esta sucursal &rarr;
+                </Link>
               </div>
             </motion.div>
           ))}

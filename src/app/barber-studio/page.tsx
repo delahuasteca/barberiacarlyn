@@ -155,6 +155,14 @@ export default function BarberStudio() {
             </a>
           </div>
           <p className="text-sm text-cream/60 mt-6">Puedes consultar cómo llegar o dejar tu reseña en Google. Google puede pedirte iniciar sesión.</p>
+          <p className="mt-4">
+            <Link
+              href="/barber-studio-jacarandas-huejutla"
+              className="text-xs text-gold/80 hover:text-gold underline underline-offset-4 transition-colors"
+            >
+              Conocer más sobre Barber Studio Jacarandas &rarr;
+            </Link>
+          </p>
         </section>
 
         <div className="mt-16 pt-10 border-t border-gold/20 text-center">
