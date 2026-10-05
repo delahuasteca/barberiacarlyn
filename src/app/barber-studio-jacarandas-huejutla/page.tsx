@@ -126,7 +126,7 @@ const studioFaqs = [
   },
   {
     question: "¿Dónde se encuentra ubicado Barber Studio?",
-    answer: "Se encuentra ubicado en la zona Jacarandas, C.P. 43000, en Huejutla de Reyes, Hidalgo. Consulta el mapa para la ruta exacta.",
+    answer: "Se encuentra ubicado en la colonia Jacarandas, C.P. 43000, en Huejutla de Reyes, Hidalgo. Consulta el mapa para la ruta exacta.",
   },
 ];
 
@@ -427,7 +427,7 @@ export default function BarberStudioJacarandasPage() {
             Ubicación en Jacarandas
           </h2>
           <p className="text-cream/70 max-w-xl mx-auto text-sm leading-relaxed mb-6">
-            Zona Jacarandas, 43000 Huejutla de Reyes, Hgo. Consulta la ruta en Google Maps y evalúa tu experiencia tras visitarnos.
+            Colonia Jacarandas, 43000 Huejutla de Reyes, Hgo. Consulta la ruta en Google Maps y evalúa tu experiencia tras visitarnos.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
