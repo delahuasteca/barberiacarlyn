@@ -23,14 +23,14 @@ import { studioReviewUrl } from "@/lib/reviews";
 import { whatsappLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
-  title: "Barber Studio Carlyn VIP en Jacarandas | Servicios Especiales",
+  title: "Barber Studio Carlyn en Jacarandas | Servicios Especiales",
   description:
-    "Barber Studio Carlyn VIP en Jacarandas, Huejutla. Servicios especiales y paquetes exclusivos atendidos personalmente por Carlyn. Privacidad y atención de autor.",
+    "Barber Studio Carlyn en Jacarandas, Huejutla. Servicios especiales y paquetes exclusivos atendidos personalmente por Carlyn. Privacidad y atención de autor.",
   alternates: {
     canonical: "/barber-studio-jacarandas-huejutla",
   },
   openGraph: {
-    title: "Barber Studio Carlyn VIP en Jacarandas | Servicios Especiales",
+    title: "Barber Studio Carlyn en Jacarandas | Servicios Especiales",
     description:
       "Servicios especiales y paquetes exclusivos atendidos personalmente por Carlyn en Jacarandas, Huejutla de Reyes.",
     url: "https://www.barberiacarlyn.com/barber-studio-jacarandas-huejutla",
