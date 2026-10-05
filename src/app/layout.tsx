@@ -96,11 +96,6 @@ const jsonLd = {
         "postalCode": "43000",
         "addressCountry": "MX",
       },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 21.1408,
-        "longitude": -98.4194,
-      },
     },
     {
       "@type": "Barbershop",
