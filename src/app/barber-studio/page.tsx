@@ -154,7 +154,7 @@ export default function BarberStudio() {
               <span>VER RESEÑAS</span>
             </a>
           </div>
-          <p className="text-sm text-cream/60 mt-6">El botón abre el formulario para calificar y escribir tu reseña. Google puede pedirte iniciar sesión.</p>
+          <p className="text-sm text-cream/60 mt-6">Puedes consultar cómo llegar o dejar tu reseña en Google. Google puede pedirte iniciar sesión.</p>
         </section>
 
         <div className="mt-16 pt-10 border-t border-gold/20 text-center">
