@@ -317,7 +317,7 @@ export default function BarberStudioJacarandasPage() {
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-brown-dark/60">
                 <Image
                   src="/images/sucursales/jacarandas/Jacarandas.jpeg"
-                  alt="Entorno residencial y ubicación privada de Barber Studio Carlyn premiun en la colonia Jacarandas, Huejutla"
+                  alt="Entorno residencial y ubicación de Barber Studio Carlyn premiun en la colonia Jacarandas, Huejutla"
                   fill
                   sizes="(max-width: 640px) 100vw, 50vw"
                   loading="lazy"
