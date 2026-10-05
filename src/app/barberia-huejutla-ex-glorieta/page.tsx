@@ -70,6 +70,34 @@ const faqs = [
   },
 ];
 
+const branchPhotos = [
+  {
+    src: "/images/sucursales/ex-glorieta/ExGlorieta.jpeg",
+    alt: "Vista exterior de la entrada a Barbería Carlyn en la zona de la Ex-Glorieta en Huejutla",
+    title: "Fachada Exterior Tradicional",
+    badge: "Fachada",
+  },
+  {
+    src: "/images/sucursales/ex-glorieta/ExGlorieta.png",
+    alt: "Estación de corte y área de trabajo interior en Barbería Carlyn sucursal Ex-Glorieta",
+    title: "Estación de Trabajo e Interior",
+    badge: "Instalaciones",
+  },
+  {
+    src: "/images/sucursales/ex-glorieta/ExGlorieta_1.png",
+    alt: "Detalle del acceso y puerta de entrada en Barbería Carlyn sucursal Ex-Glorieta",
+    title: "Acceso y Entrada al Local",
+    badge: "Acceso",
+  },
+];
+
+const heroPhoto = {
+  src: "/images/sucursales/ex-glorieta/ExGlorieta.jpeg",
+  alt: "Fachada principal de Barbería Carlyn con poste de barbero tradicional en Ex-Glorieta, Santa Irene",
+  title: "Fachada Oficial Ex-Glorieta",
+  badge: "Fachada Oficial",
+};
+
 export default function ExGlorietaPage() {
   return (
     <BranchLanding
@@ -79,6 +107,8 @@ export default function ExGlorietaPage() {
       description="Visita nuestra sucursal en Ex-Glorieta. Fácil acceso, ambiente cómodo y la dedicación de Chucky Barber para cuidar tu imagen con el sello VIP de Carlyn."
       faqs={faqs}
       jsonLd={jsonLd}
+      heroImage={heroPhoto}
+      gallery={branchPhotos}
     />
   );
 }

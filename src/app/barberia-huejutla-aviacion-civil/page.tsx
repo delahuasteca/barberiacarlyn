@@ -70,6 +70,34 @@ const faqs = [
   },
 ];
 
+const branchPhotos = [
+  {
+    src: "/images/sucursales/aviacion-civil/AviacionCivil.jpeg",
+    alt: "Entrada principal con toldo tradicional de Barbería Carlyn en la colonia Aviación Civil",
+    title: "Fachada y Entrada Principal",
+    badge: "Fachada",
+  },
+  {
+    src: "/images/sucursales/aviacion-civil/AviacionCivil.png",
+    alt: "Instalaciones interiores y sillones profesionales en Barbería Carlyn sucursal Aviación Civil",
+    title: "Estaciones de Trabajo e Interior",
+    badge: "Instalaciones",
+  },
+  {
+    src: "/images/sucursales/aviacion-civil/AviacionCivil1.png",
+    alt: "Servicio y afeitado tradicional en sillón de barbero en Barbería Carlyn Aviación Civil",
+    title: "Servicio de Afeitado y Barba",
+    badge: "Atención",
+  },
+];
+
+const heroPhoto = {
+  src: "/images/sucursales/aviacion-civil/AviacionCivil.jpeg",
+  alt: "Fachada oficial exterior y rótulo de Barbería Carlyn sucursal Aviación Civil en Huejutla",
+  title: "Fachada Oficial Aviación Civil",
+  badge: "Fachada Oficial",
+};
+
 export default function AviacionCivilPage() {
   return (
     <BranchLanding
@@ -79,6 +107,8 @@ export default function AviacionCivilPage() {
       description="Tu barbería de confianza en la zona de Aviación Civil. Cortes impecables, fades a medida y delineado de barba con el estándar de calidad Carlyn."
       faqs={faqs}
       jsonLd={jsonLd}
+      heroImage={heroPhoto}
+      gallery={branchPhotos}
     />
   );
 }

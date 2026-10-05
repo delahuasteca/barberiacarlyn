@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
-import { MapPin, Clock, ExternalLink, UserRound, CalendarX, Star } from "lucide-react";
+import { MapPin, Clock, UserRound, CalendarX, Star } from "lucide-react";
 
 import { branches, branchMapsLink } from "@/lib/branches";
 import { branchReviews } from "@/lib/reviews";

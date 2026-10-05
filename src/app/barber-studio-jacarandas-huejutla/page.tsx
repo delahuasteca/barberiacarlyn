@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import Image from "next/image";
 import { 
   ArrowLeft, 
   MapPin, 
   Star, 
   Crown, 
   Check, 
-  Sparkles, 
-  Clock, 
   UserRound, 
   MessageCircle,
   HelpCircle,
   ExternalLink,
   ChevronRight,
   ShieldCheck,
-  GlassWater
+  GlassWater,
+  Camera
 } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 import { studioMapsUrl, branches } from "@/lib/branches";
@@ -162,61 +162,89 @@ export default function BarberStudioJacarandasPage() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-16 sm:space-y-24">
         {/* HERO SECTION DE AUTOR */}
-        <section aria-labelledby="studio-hero-title" className="text-center relative">
-          <div className="inline-flex items-center gap-2 border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs text-gold font-bold uppercase tracking-widest mb-6 retro-glow">
-            <Crown className="w-4 h-4 text-gold" aria-hidden="true" />
-            <span>Ubicación Especializada · Jacarandas, Huejutla</span>
-          </div>
+        <section aria-labelledby="studio-hero-title" className="relative">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center text-center lg:text-left">
+            <div className="lg:col-span-7 flex flex-col items-center lg:items-start">
+              <div className="inline-flex items-center gap-2 border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs text-gold font-bold uppercase tracking-widest mb-6 retro-glow">
+                <Crown className="w-4 h-4 text-gold" aria-hidden="true" />
+                <span>Ubicación Especializada · Jacarandas, Huejutla</span>
+              </div>
 
-          <h1
-            id="studio-hero-title"
-            className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-cream max-w-4xl mx-auto leading-tight"
-          >
-            Barber Studio Carlyn en <span className="text-gradient-gold">Jacarandas</span>
-          </h1>
+              <h1
+                id="studio-hero-title"
+                className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-cream max-w-4xl leading-tight"
+              >
+                Barber Studio Carlyn en <span className="text-gradient-gold">Jacarandas</span>
+              </h1>
 
-          <p className="text-gold font-serif text-lg sm:text-2xl max-w-2xl mx-auto mt-4">
-            Servicios especiales realizados personalmente por Carlyn.
-          </p>
+              <p className="text-gold font-serif text-lg sm:text-2xl max-w-2xl mt-4">
+                Servicios especiales realizados personalmente por Carlyn.
+              </p>
 
-          <p className="text-cream/70 max-w-2xl mx-auto mt-4 text-sm sm:text-base leading-relaxed">
-            Una experiencia diseñada para quienes buscan exclusividad, privacidad absoluta y el más alto nivel de técnica. Disfruta de una bebida de cortesía durante tu servicio.
-          </p>
+              <p className="text-cream/70 max-w-2xl mt-4 text-sm sm:text-base leading-relaxed">
+                Una experiencia diseñada para quienes buscan exclusividad, privacidad absoluta y el más alto nivel de técnica. Disfruta de una bebida de cortesía durante tu servicio.
+              </p>
 
-          {/* ACTION BUTTONS */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
-            <a
-              href={studioMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Cómo llegar a Barber Studio Carlyn Jacarandas en Google Maps (abrir en nueva pestaña)"
-              className="w-full sm:w-auto min-h-[52px] px-8 py-3.5 bg-gold text-brown-dark font-bold text-sm tracking-wider uppercase inline-flex items-center justify-center gap-2 shadow-md hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
-            >
-              <MapPin className="w-4 h-4 shrink-0 text-brown-dark" aria-hidden="true" />
-              <span>CÓMO LLEGAR</span>
-            </a>
+              {/* ACTION BUTTONS */}
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 w-full sm:w-auto">
+                <a
+                  href={studioMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Cómo llegar a Barber Studio Carlyn Jacarandas en Google Maps (abrir en nueva pestaña)"
+                  className="w-full sm:w-auto min-h-[52px] px-8 py-3.5 bg-gold text-brown-dark font-bold text-sm tracking-wider uppercase inline-flex items-center justify-center gap-2 shadow-md hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+                >
+                  <MapPin className="w-4 h-4 shrink-0 text-brown-dark" aria-hidden="true" />
+                  <span>CÓMO LLEGAR</span>
+                </a>
 
-            <a
-              href={studioReviewUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Ver y calificar reseñas de Barber Studio Carlyn Jacarandas en Google Maps (abrir en nueva pestaña)"
-              className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 border border-gold/40 text-gold text-xs tracking-wider uppercase font-semibold inline-flex items-center justify-center gap-2 hover:bg-gold/10 hover:border-gold/60 hover:text-cream active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
-            >
-              <Star className="w-3.5 h-3.5 shrink-0 text-gold fill-gold/20" aria-hidden="true" />
-              <span>VER RESEÑAS</span>
-            </a>
+                <a
+                  href={studioReviewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Ver y calificar reseñas de Barber Studio Carlyn Jacarandas en Google Maps (abrir en nueva pestaña)"
+                  className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 border border-gold/40 text-gold text-xs tracking-wider uppercase font-semibold inline-flex items-center justify-center gap-2 hover:bg-gold/10 hover:border-gold/60 hover:text-cream active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+                >
+                  <Star className="w-3.5 h-3.5 shrink-0 text-gold fill-gold/20" aria-hidden="true" />
+                  <span>VER RESEÑAS</span>
+                </a>
 
-            <a
-              href={whatsappLink("Hola Carlyn, deseo agendar una cita en BARBER STUDIO CARLYN VIP Jacarandas.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Agendar con Carlyn por WhatsApp"
-              className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 bg-[#25D366] text-brown-dark text-xs tracking-wider uppercase font-bold inline-flex items-center justify-center gap-2 hover:bg-[#20ba59] active:scale-[0.99] transition-all duration-300"
-            >
-              <MessageCircle className="w-3.5 h-3.5 shrink-0 text-brown-dark" aria-hidden="true" />
-              <span>CONSULTAR / AGENDAR</span>
-            </a>
+                <a
+                  href={whatsappLink("Hola Carlyn, deseo agendar una cita en BARBER STUDIO CARLYN VIP Jacarandas.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Agendar con Carlyn por WhatsApp"
+                  className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 bg-[#25D366] text-brown-dark text-xs tracking-wider uppercase font-bold inline-flex items-center justify-center gap-2 hover:bg-[#20ba59] active:scale-[0.99] transition-all duration-300"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 shrink-0 text-brown-dark" aria-hidden="true" />
+                  <span>CONSULTAR / AGENDAR</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 w-full max-w-sm sm:max-w-md mx-auto lg:max-w-none">
+              <div className="relative border border-gold/40 bg-brown-medium/40 p-2 sm:p-2.5 retro-glow group">
+                <div className="relative aspect-[4/5] w-full overflow-hidden bg-brown-dark/80">
+                  <Image
+                    src="/images/sucursales/jacarandas/Jacarandas.png"
+                    alt="Sesión exclusiva de cuidado de barba con vapor de ozono en Barber Studio Carlyn VIP Jacarandas"
+                    fill
+                    priority
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brown-dark/85 via-transparent to-transparent opacity-60" />
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs">
+                    <span className="bg-brown-dark/90 text-gold border border-gold/40 px-2.5 py-1 text-[11px] font-semibold tracking-wider uppercase backdrop-blur-sm">
+                      Ritual VIP con Vapor de Ozono
+                    </span>
+                    <span className="text-cream/90 text-[11px] font-medium bg-brown-dark/70 px-2 py-0.5 border border-gold/20">
+                      Jacarandas
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -242,6 +270,72 @@ export default function BarberStudioJacarandasPage() {
             <p className="text-cream/60 text-xs leading-relaxed">
               Disfruta de una bebida selecta de cortesía para acompañar tu sesión de corte o ritual de spa facial.
             </p>
+          </div>
+        </section>
+
+        {/* GALERÍA DE ESPACIO Y EXPERIENCIA VIP */}
+        <section aria-labelledby="studio-gallery-title" className="space-y-8">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 text-gold text-xs tracking-[0.3em] uppercase mb-2">
+              <Camera className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>Fotos Reales del Studio VIP</span>
+            </div>
+            <h2 id="studio-gallery-title" className="font-serif text-3xl sm:text-4xl text-cream">
+              Espacio y Experiencia en <span className="text-gradient-gold">Jacarandas</span>
+            </h2>
+            <p className="text-cream/60 text-xs sm:text-sm max-w-xl mx-auto mt-2">
+              Privacidad absoluta, atención especializada y rituales diseñados para tu confort.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <figure className="border border-gold/30 bg-brown-medium/30 p-3 overflow-hidden group hover:border-gold/50 transition-all duration-300 retro-glow flex flex-col justify-between">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-brown-dark/60">
+                <Image
+                  src="/images/sucursales/jacarandas/Jacarandas.png"
+                  alt="Tratamiento facial y ritual de toalla caliente con vapor de ozono en cabina de Barber Studio Carlyn"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                  loading="lazy"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <span className="absolute top-2.5 left-2.5 bg-brown-dark/90 text-gold border border-gold/30 px-2 py-0.5 text-[10px] uppercase tracking-wider font-semibold backdrop-blur-sm">
+                  Ritual VIP
+                </span>
+              </div>
+              <figcaption className="p-3 text-left">
+                <p className="font-serif text-base font-semibold text-cream group-hover:text-gold transition-colors">
+                  Ritual Caballero & Vapor de Ozono
+                </p>
+                <p className="text-cream/60 text-xs mt-1 leading-snug">
+                  Tratamiento facial y cuidado de barba de alta gama con equipo profesional de vapor de ozono en cabina privada.
+                </p>
+              </figcaption>
+            </figure>
+
+            <figure className="border border-gold/30 bg-brown-medium/30 p-3 overflow-hidden group hover:border-gold/50 transition-all duration-300 retro-glow flex flex-col justify-between">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-brown-dark/60">
+                <Image
+                  src="/images/sucursales/jacarandas/Jacarandas.jpeg"
+                  alt="Entorno residencial y ubicación privada de Barber Studio Carlyn VIP en la colonia Jacarandas, Huejutla"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                  loading="lazy"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <span className="absolute top-2.5 left-2.5 bg-brown-dark/90 text-gold border border-gold/30 px-2 py-0.5 text-[10px] uppercase tracking-wider font-semibold backdrop-blur-sm">
+                  Ubicación VIP
+                </span>
+              </div>
+              <figcaption className="p-3 text-left">
+                <p className="font-serif text-base font-semibold text-cream group-hover:text-gold transition-colors">
+                  Ubicación y Privacidad en Jacarandas
+                </p>
+                <p className="text-cream/60 text-xs mt-1 leading-snug">
+                  Entorno residencial exclusivo y privado para atención con cita previa en Huejutla de Reyes.
+                </p>
+              </figcaption>
+            </figure>
           </div>
         </section>
 

@@ -16,12 +16,20 @@ import {
   MessageCircle,
   HelpCircle,
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  Camera
 } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
-import { branches, branchMapsLink, studioMapsUrl } from "@/lib/branches";
+import { branches, branchMapsLink } from "@/lib/branches";
 import { branchReviews } from "@/lib/reviews";
 import { whatsappLink } from "@/lib/whatsapp";
+
+export interface BranchPhoto {
+  src: string;
+  alt: string;
+  title: string;
+  badge?: string;
+}
 
 interface BranchLandingProps {
   branchId: "aviacion-civil" | "ex-glorieta" | "tecoluco";
@@ -30,6 +38,8 @@ interface BranchLandingProps {
   description: string;
   faqs: { question: string; answer: string }[];
   jsonLd: Record<string, unknown>;
+  heroImage?: BranchPhoto;
+  gallery?: BranchPhoto[];
 }
 
 const standardServices = [
@@ -48,6 +58,8 @@ export default function BranchLanding({
   description,
   faqs,
   jsonLd,
+  heroImage,
+  gallery,
 }: BranchLandingProps) {
   const branch = branches.find((b) => b.id === branchId)!;
   const reviewInfo = branchReviews[branchId];
@@ -80,62 +92,152 @@ export default function BranchLanding({
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-16 sm:space-y-24">
         {/* HERO SECTION */}
-        <section aria-labelledby="branch-hero-title" className="text-center relative">
-          <div className="inline-flex items-center gap-2 border border-gold/30 bg-gold/10 px-4 py-1.5 text-xs text-gold font-medium uppercase tracking-widest mb-6">
-            <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Sucursal {neighborhood} · Huejutla de Reyes</span>
-          </div>
+        <section aria-labelledby="branch-hero-title" className="relative">
+          {heroImage ? (
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center text-center lg:text-left">
+              <div className="lg:col-span-7 flex flex-col items-center lg:items-start">
+                <div className="inline-flex items-center gap-2 border border-gold/30 bg-gold/10 px-4 py-1.5 text-xs text-gold font-medium uppercase tracking-widest mb-6">
+                  <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>Sucursal {neighborhood} · Huejutla de Reyes</span>
+                </div>
 
-          <h1
-            id="branch-hero-title"
-            className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-cream max-w-4xl mx-auto leading-tight"
-          >
-            {branch.name}
-          </h1>
+                <h1
+                  id="branch-hero-title"
+                  className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-cream max-w-4xl leading-tight"
+                >
+                  {branch.name}
+                </h1>
 
-          <p className="text-gold font-serif text-lg sm:text-xl max-w-2xl mx-auto mt-4">
-            {heroTagline}
-          </p>
+                <p className="text-gold font-serif text-lg sm:text-xl max-w-2xl mt-4">
+                  {heroTagline}
+                </p>
 
-          <p className="text-cream/70 max-w-2xl mx-auto mt-4 text-sm sm:text-base leading-relaxed">
-            {description}
-          </p>
+                <p className="text-cream/70 max-w-2xl mt-4 text-sm sm:text-base leading-relaxed">
+                  {description}
+                </p>
 
-          {/* ACTION BUTTONS */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
-            <a
-              href={branchMapsLink(branch)}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Cómo llegar a ${branch.name} en Google Maps (abrir en nueva pestaña)`}
-              className="w-full sm:w-auto min-h-[52px] px-8 py-3.5 bg-gold text-brown-dark font-bold text-sm tracking-wider uppercase inline-flex items-center justify-center gap-2 shadow-md hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
-            >
-              <MapPin className="w-4 h-4 shrink-0 text-brown-dark" aria-hidden="true" />
-              <span>CÓMO LLEGAR</span>
-            </a>
+                {/* ACTION BUTTONS */}
+                <div className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 w-full sm:w-auto">
+                  <a
+                    href={branchMapsLink(branch)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Cómo llegar a ${branch.name} en Google Maps (abrir en nueva pestaña)`}
+                    className="w-full sm:w-auto min-h-[52px] px-8 py-3.5 bg-gold text-brown-dark font-bold text-sm tracking-wider uppercase inline-flex items-center justify-center gap-2 shadow-md hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+                  >
+                    <MapPin className="w-4 h-4 shrink-0 text-brown-dark" aria-hidden="true" />
+                    <span>CÓMO LLEGAR</span>
+                  </a>
 
-            <a
-              href={reviewsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Ver y calificar reseñas de ${branch.name} en Google Maps (abrir en nueva pestaña)`}
-              className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 border border-gold/40 text-gold text-xs tracking-wider uppercase font-semibold inline-flex items-center justify-center gap-2 hover:bg-gold/10 hover:border-gold/60 hover:text-cream active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
-            >
-              <Star className="w-3.5 h-3.5 shrink-0 text-gold fill-gold/20" aria-hidden="true" />
-              <span>VER RESEÑAS</span>
-            </a>
+                  <a
+                    href={reviewsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Ver y calificar reseñas de ${branch.name} en Google Maps (abrir en nueva pestaña)`}
+                    className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 border border-gold/40 text-gold text-xs tracking-wider uppercase font-semibold inline-flex items-center justify-center gap-2 hover:bg-gold/10 hover:border-gold/60 hover:text-cream active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+                  >
+                    <Star className="w-3.5 h-3.5 shrink-0 text-gold fill-gold/20" aria-hidden="true" />
+                    <span>VER RESEÑAS</span>
+                  </a>
 
-            <a
-              href={whatsappLink(`Hola, quisiera consultar información sobre la ${branch.name}.`)}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Escribir por WhatsApp a Barbería Carlyn"
-              className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 border border-[#25D366]/40 text-[#25D366] text-xs tracking-wider uppercase font-semibold inline-flex items-center justify-center gap-2 hover:bg-[#25D366]/10 hover:border-[#25D366] transition-all duration-300"
-            >
-              <MessageCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
-              <span>WHATSAPP</span>
-            </a>
-          </div>
+                  <a
+                    href={whatsappLink(`Hola, quisiera consultar información sobre la ${branch.name}.`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Escribir por WhatsApp a Barbería Carlyn"
+                    className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 border border-[#25D366]/40 text-[#25D366] text-xs tracking-wider uppercase font-semibold inline-flex items-center justify-center gap-2 hover:bg-[#25D366]/10 hover:border-[#25D366] transition-all duration-300"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                    <span>WHATSAPP</span>
+                  </a>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5 w-full max-w-sm sm:max-w-md mx-auto lg:max-w-none">
+                <div className="relative border border-gold/30 bg-brown-medium/40 p-2 sm:p-2.5 retro-glow group">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-brown-dark/80">
+                    <Image
+                      src={heroImage.src}
+                      alt={heroImage.alt}
+                      fill
+                      priority
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-brown-dark/85 via-transparent to-transparent opacity-60" />
+                    {heroImage.badge && (
+                      <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs">
+                        <span className="bg-brown-dark/90 text-gold border border-gold/40 px-2.5 py-1 text-[11px] font-semibold tracking-wider uppercase backdrop-blur-sm">
+                          {heroImage.badge}
+                        </span>
+                        <span className="text-cream/90 text-[11px] font-medium bg-brown-dark/70 px-2 py-0.5 border border-gold/20">
+                          {neighborhood}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center">
+              <div className="inline-flex items-center gap-2 border border-gold/30 bg-gold/10 px-4 py-1.5 text-xs text-gold font-medium uppercase tracking-widest mb-6">
+                <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+                <span>Sucursal {neighborhood} · Huejutla de Reyes</span>
+              </div>
+
+              <h1
+                id="branch-hero-title"
+                className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-cream max-w-4xl mx-auto leading-tight"
+              >
+                {branch.name}
+              </h1>
+
+              <p className="text-gold font-serif text-lg sm:text-xl max-w-2xl mx-auto mt-4">
+                {heroTagline}
+              </p>
+
+              <p className="text-cream/70 max-w-2xl mx-auto mt-4 text-sm sm:text-base leading-relaxed">
+                {description}
+              </p>
+
+              {/* ACTION BUTTONS */}
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
+                <a
+                  href={branchMapsLink(branch)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Cómo llegar a ${branch.name} en Google Maps (abrir en nueva pestaña)`}
+                  className="w-full sm:w-auto min-h-[52px] px-8 py-3.5 bg-gold text-brown-dark font-bold text-sm tracking-wider uppercase inline-flex items-center justify-center gap-2 shadow-md hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+                >
+                  <MapPin className="w-4 h-4 shrink-0 text-brown-dark" aria-hidden="true" />
+                  <span>CÓMO LLEGAR</span>
+                </a>
+
+                <a
+                  href={reviewsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Ver y calificar reseñas de ${branch.name} en Google Maps (abrir en nueva pestaña)`}
+                  className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 border border-gold/40 text-gold text-xs tracking-wider uppercase font-semibold inline-flex items-center justify-center gap-2 hover:bg-gold/10 hover:border-gold/60 hover:text-cream active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+                >
+                  <Star className="w-3.5 h-3.5 shrink-0 text-gold fill-gold/20" aria-hidden="true" />
+                  <span>VER RESEÑAS</span>
+                </a>
+
+                <a
+                  href={whatsappLink(`Hola, quisiera consultar información sobre la ${branch.name}.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Escribir por WhatsApp a Barbería Carlyn"
+                  className="w-full sm:w-auto min-h-[44px] px-6 py-2.5 border border-[#25D366]/40 text-[#25D366] text-xs tracking-wider uppercase font-semibold inline-flex items-center justify-center gap-2 hover:bg-[#25D366]/10 hover:border-[#25D366] transition-all duration-300"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                  <span>WHATSAPP</span>
+                </a>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* FICHA TÉCNICA LOCAL / NAP */}
@@ -191,6 +293,57 @@ export default function BranchLanding({
             </div>
           </div>
         </section>
+
+        {/* GALERÍA DE FOTOS REALES DE LA SUCURSAL */}
+        {gallery && gallery.length > 0 && (
+          <section aria-labelledby="gallery-title" className="space-y-8">
+            <div className="text-center">
+              <div className="inline-flex items-center gap-2 text-gold text-xs tracking-[0.3em] uppercase mb-2">
+                <Camera className="w-3.5 h-3.5" aria-hidden="true" />
+                <span>Instalaciones y Fotos Reales</span>
+              </div>
+              <h2 id="gallery-title" className="font-serif text-3xl sm:text-4xl text-cream">
+                Galería de <span className="text-gradient-gold">Sucursal {neighborhood}</span>
+              </h2>
+              <p className="text-cream/60 text-xs sm:text-sm max-w-xl mx-auto mt-2">
+                Fotografías reales del local, estación de trabajo y experiencia de servicio en esta ubicación.
+              </p>
+            </div>
+
+            <div className={`grid grid-cols-1 sm:grid-cols-2 ${gallery.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"} gap-6`}>
+              {gallery.map((photo) => (
+                <figure
+                  key={photo.src}
+                  className="border border-gold/25 bg-brown-medium/30 p-2.5 overflow-hidden group hover:border-gold/50 transition-all duration-300 retro-glow flex flex-col justify-between"
+                >
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-brown-dark/60">
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      loading="lazy"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    {photo.badge && (
+                      <span className="absolute top-2.5 left-2.5 bg-brown-dark/90 text-gold border border-gold/30 px-2 py-0.5 text-[10px] uppercase tracking-wider font-semibold backdrop-blur-sm">
+                        {photo.badge}
+                      </span>
+                    )}
+                  </div>
+                  <figcaption className="p-3 text-left">
+                    <p className="font-serif text-sm font-semibold text-cream group-hover:text-gold transition-colors">
+                      {photo.title}
+                    </p>
+                    <p className="text-cream/60 text-xs mt-1 leading-snug">
+                      {photo.alt}
+                    </p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* SERVICIOS DISPONIBLES EN LA SUCURSAL */}
         <section aria-labelledby="services-title">

@@ -70,6 +70,40 @@ const faqs = [
   },
 ];
 
+const branchPhotos = [
+  {
+    src: "/images/sucursales/tecoluco/Tecoluco2.png",
+    alt: "Vista frontal exterior y cristalería de Barbería Carlyn sucursal Tecoluco en Huejutla",
+    title: "Fachada y Cristalería Exterior",
+    badge: "Fachada",
+  },
+  {
+    src: "/images/sucursales/tecoluco/Tecoluco.png",
+    alt: "Estación de corte con espejo iluminado y sillón de barbero en Barbería Carlyn Tecoluco",
+    title: "Estación de Corte y Espejo Iluminado",
+    badge: "Instalaciones",
+  },
+  {
+    src: "/images/sucursales/tecoluco/Tecoluco1.png",
+    alt: "Sala de espera y perspectiva general interior de Barbería Carlyn sucursal Tecoluco",
+    title: "Sala de Espera e Interior",
+    badge: "Área de Espera",
+  },
+  {
+    src: "/images/sucursales/tecoluco/Tecoluco.jpeg",
+    alt: "Fachada vertical de Barbería Carlyn sobre calle 5 de Mayo en la colonia Tecoluco",
+    title: "Vista Exterior y Calle",
+    badge: "Ubicación",
+  },
+];
+
+const heroPhoto = {
+  src: "/images/sucursales/tecoluco/Tecoluco2.png",
+  alt: "Fachada exterior con ventanales y letrero comercial de Barbería Carlyn sucursal Tecoluco",
+  title: "Fachada Oficial Tecoluco",
+  badge: "Fachada Oficial",
+};
+
 export default function TecolucoPage() {
   return (
     <BranchLanding
@@ -79,6 +113,8 @@ export default function TecolucoPage() {
       description="Tu parada de estilo en Tecoluco. Disfruta del servicio personalizado de Johan con acabados profesionales para el caballero moderno."
       faqs={faqs}
       jsonLd={jsonLd}
+      heroImage={heroPhoto}
+      gallery={branchPhotos}
     />
   );
 }
