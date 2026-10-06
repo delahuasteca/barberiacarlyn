@@ -32,7 +32,7 @@ export interface BranchPhoto {
 }
 
 interface BranchLandingProps {
-  branchId: "aviacion-civil" | "ex-glorieta" | "tecoluco";
+  branchId: "aviacion-civil" | "ex-glorieta";
   neighborhood: string;
   heroTagline: string;
   description: string;
@@ -449,7 +449,7 @@ export default function BranchLanding({
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
             {otherBranches.map((other) => (
               <Link
                 key={other.id}

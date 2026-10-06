@@ -84,6 +84,12 @@ const branchPhotos = [
     badge: "Instalaciones",
   },
   {
+    src: "/images/sucursales/aviacion-civil/Barbero-Jael.jpeg",
+    alt: "Jael, barbero de Barbería Carlyn sucursal Aviación Civil",
+    title: "Jael — Barbero Oficial",
+    badge: "Barbero",
+  },
+  {
     src: "/images/sucursales/aviacion-civil/AviacionCivil1.png",
     alt: "Servicio y afeitado tradicional en sillón de barbero en Barbería Carlyn Aviación Civil",
     title: "Servicio de Afeitado y Barba",

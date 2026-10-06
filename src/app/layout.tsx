@@ -151,33 +151,6 @@ const jsonLd = {
         },
       ],
     },
-    {
-      "@type": "Barbershop",
-      "@id": "https://www.barberiacarlyn.com/#branch-tecoluco",
-      "name": "Barbería Carlyn — Sucursal Tecoluco",
-      "parentOrganization": {
-        "@id": "https://www.barberiacarlyn.com/#organization",
-      },
-      "url": "https://www.barberiacarlyn.com/#branches",
-      "hasMap": "https://maps.app.goo.gl/71zFemsin8cXQpyX9",
-      "telephone": "+52 771 261 3445",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Huejutla Tamazunchale 5 de Mayo",
-        "addressLocality": "Huejutla de Reyes",
-        "addressRegion": "Hidalgo",
-        "postalCode": "43000",
-        "addressCountry": "MX",
-      },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          "opens": "09:00",
-          "closes": "20:00",
-        },
-      ],
-    },
   ],
 };
 

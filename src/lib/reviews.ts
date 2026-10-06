@@ -42,15 +42,4 @@ export const branchReviews: Record<string, BranchReviews> = {
       isExample: true,
     }],
   },
-  "tecoluco": {
-    writeUrl: "https://search.google.com/local/writereview?placeid=ChIJJfJcvNQn14URd_9HlYtvWtE",
-    readUrl: "",
-    reviews: [{
-      author: "Nombre del cliente",
-      text: "Aquí aparecerá la reseña de un cliente de la sucursal Tecoluco.",
-      rating: null,
-      date: "",
-      isExample: true,
-    }],
-  },
 };

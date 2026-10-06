@@ -288,14 +288,38 @@ export default function BarberStudioJacarandasPage() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <figure className="border border-gold/30 bg-brown-medium/30 p-3 overflow-hidden group hover:border-gold/50 transition-all duration-300 retro-glow flex flex-col justify-between">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-brown-dark/60">
+                <Image
+                  src="/images/sucursales/jacarandas/Carlyn.jpeg"
+                  alt="Carlyn, barbero de Barber Studio Carlyn VIP en Jacarandas"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <span className="absolute top-2.5 left-2.5 bg-brown-dark/90 text-gold border border-gold/30 px-2 py-0.5 text-[10px] uppercase tracking-wider font-semibold backdrop-blur-sm">
+                  Atención Personalizada
+                </span>
+              </div>
+              <figcaption className="p-3 text-left">
+                <p className="font-serif text-base font-semibold text-cream group-hover:text-gold transition-colors">
+                  Carlyn — Barbero de Autor
+                </p>
+                <p className="text-cream/60 text-xs mt-1 leading-snug">
+                  Atención personalizada y técnica de autor en cada corte y ritual VIP en cabina privada.
+                </p>
+              </figcaption>
+            </figure>
+
             <figure className="border border-gold/30 bg-brown-medium/30 p-3 overflow-hidden group hover:border-gold/50 transition-all duration-300 retro-glow flex flex-col justify-between">
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-brown-dark/60">
                 <Image
                   src="/images/sucursales/jacarandas/Jacarandas.png"
                   alt="Tratamiento facial y ritual de toalla caliente con vapor de ozono en cabina de Barber Studio Carlyn"
                   fill
-                  sizes="(max-width: 640px) 100vw, 50vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   loading="lazy"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -319,7 +343,7 @@ export default function BarberStudioJacarandasPage() {
                   src="/images/sucursales/jacarandas/Jacarandas.jpeg"
                   alt="Entorno residencial y ubicación de Barber Studio Carlyn premiun en la colonia Jacarandas, Huejutla"
                   fill
-                  sizes="(max-width: 640px) 100vw, 50vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   loading="lazy"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -486,11 +510,11 @@ export default function BarberStudioJacarandasPage() {
               ¿Buscas atención rápida sin cita previa?
             </h2>
             <p className="text-cream/60 text-xs sm:text-sm mt-1">
-              Conoce nuestras tres sucursales generales en Huejutla de Reyes.
+              Conoce nuestras sucursales generales en Huejutla de Reyes.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
             {branches.map((b) => (
               <Link
                 key={b.id}

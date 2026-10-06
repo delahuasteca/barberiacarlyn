@@ -17,15 +17,6 @@ export const branches = [
     hours: "Jueves a Martes: 9:00 AM - 8:00 PM",
     featured: false,
   },
-  {
-    id: "tecoluco",
-    mapsUrl: "https://maps.app.goo.gl/71zFemsin8cXQpyX9",
-    name: "Barbería Carlyn — Sucursal Tecoluco",
-    address: "Huejutla Tamazunchale 5 de Mayo, 43000 Huejutla de Reyes, Hgo.",
-    barber: "Johan",
-    hours: "Lunes a sábado: 9:00 AM - 8:00 PM",
-    featured: false,
-  },
 ];
 
 export const studioMapsUrl = "https://maps.app.goo.gl/ENEbUNng6wBGMJfW6";

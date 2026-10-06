@@ -45,7 +45,7 @@ export default function Branches() {
         </motion.div>
 
         {/* Tarjetas de sucursales */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {branches.map((branch, i) => (
             <motion.div
               key={branch.name}

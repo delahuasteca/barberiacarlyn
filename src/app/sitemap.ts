@@ -22,12 +22,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: "https://www.barberiacarlyn.com/barberia-huejutla-tecoluco",
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
       url: "https://www.barberiacarlyn.com/barber-studio-jacarandas-huejutla",
       lastModified: now,
       changeFrequency: "weekly",
