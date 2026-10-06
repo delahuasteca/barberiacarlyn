@@ -49,7 +49,7 @@ export default function Reviews() {
               También puedes consultar sus opiniones en Google Maps.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-2 gap-4">
             {branches.map((branch) => (
               <article key={branch.id} className="flex flex-col border border-gold/25 bg-brown-dark/40 p-6">
                 <h4 className="font-serif text-xl text-cream mb-6">{branch.name}</h4>
