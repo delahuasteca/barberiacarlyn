@@ -73,7 +73,7 @@ const faqs = [
 const branchPhotos = [
   {
     src: "/images/sucursales/ex-glorieta/Barbero-Johan.jpeg",
-    alt: "Johan, barbero de Barbería Carlyn sucursal Aviación Civil",
+    alt: "Johan, barbero de Barbería Carlyn sucursal Ex-Glorieta",
     title: "Johan — Barbero Oficial",
     badge: "Barbero",
   },
