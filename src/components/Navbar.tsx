@@ -73,7 +73,7 @@ export default function Navbar() {
               transition={{ delay: 0.8 }}
               className="hidden lg:flex items-center gap-2 bg-gold/10 border border-gold/40 text-gold px-5 py-2.5 text-sm tracking-wider uppercase hover:bg-gold hover:text-brown-dark transition-all duration-300"
             >
-              Agenda con Carlyn
+              Barber Studio Carlyn
             </motion.a>
 
             {/* Botón del menú móvil */}
