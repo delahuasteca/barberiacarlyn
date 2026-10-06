@@ -72,10 +72,10 @@ const faqs = [
 
 const branchPhotos = [
   {
-    src: "/images/sucursales/ex-glorieta/ExGlorieta.jpeg",
-    alt: "Vista exterior de la entrada a Barbería Carlyn en la zona de la Ex-Glorieta en Huejutla",
-    title: "Fachada Exterior Tradicional",
-    badge: "Fachada",
+    src: "/images/sucursales/ex-glorieta/Barbero-Johan.jpeg",
+    alt: "Johan, barbero de Barbería Carlyn sucursal Aviación Civil",
+    title: "Johan — Barbero Oficial",
+    badge: "Barbero",
   },
   {
     src: "/images/sucursales/ex-glorieta/ExGlorieta.png",
