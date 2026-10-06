@@ -94,6 +94,12 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
+            href="#services"
+            className="border border-gold/40 text-gold px-10 py-4 text-sm tracking-[0.2em] uppercase font-light hover:bg-gold/10 transition-all duration-300"
+          >
+            Ver Servicios
+          </a>
+          <a
             href="/barber-studio-jacarandas-huejutla"
             className="group relative bg-gold text-brown-dark px-10 py-4 text-sm tracking-[0.2em] uppercase font-bold overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-gold/20"
           >
