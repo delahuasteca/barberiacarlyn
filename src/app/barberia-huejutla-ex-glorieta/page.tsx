@@ -2,12 +2,7 @@ import type { Metadata } from "next";
 import BranchLanding from "@/components/BranchLanding";
 
 export const metadata: Metadata = {
-  title: "Barbería en Santa Irene Huejutla | Barbería Carlyn Ex-Glorieta",
-  description:
-    "Barbería Carlyn en Ex-Glorieta / Santa Irene, Huejutla. Cortes de cabello y arreglo de barba atendido por Johan y Chucky Barber. Jueves a martes 9am a 8pm sin cita previa.",
-  alternates: {
-    canonical: "/barberia-huejutla-ex-glorieta",
-  },
+  title: "Barbería en SanBarbero
   openGraph: {
     title: "Barbería en Santa Irene Huejutla | Barbería Carlyn Ex-Glorieta",
     description:
