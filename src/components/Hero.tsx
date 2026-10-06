@@ -94,10 +94,16 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="#sucursales"
+            href="#Branches"
             className="border border-gold/40 text-gold px-10 py-4 text-sm tracking-[0.2em] uppercase font-light hover:bg-gold/10 transition-all duration-300"
           >
             Ver Sucursales
+          </a>
+           <a
+            href="#services"
+            className="border border-gold/40 text-gold px-10 py-4 text-sm tracking-[0.2em] uppercase font-light hover:bg-gold/10 transition-all duration-300"
+          >
+            Ver Servicios
           </a>
           <a
             href="/barber-studio-jacarandas-huejutla"
@@ -108,12 +114,7 @@ export default function Hero() {
             </span>
             <div className="absolute inset-0 bg-gold-light transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
           </a>
-          <a
-            href="#services"
-            className="border border-gold/40 text-gold px-10 py-4 text-sm tracking-[0.2em] uppercase font-light hover:bg-gold/10 transition-all duration-300"
-          >
-            Ver Servicios
-          </a>
+         
         </motion.div>
       </div>
 
