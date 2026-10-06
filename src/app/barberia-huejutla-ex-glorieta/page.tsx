@@ -104,7 +104,7 @@ export default function ExGlorietaPage() {
       branchId="ex-glorieta"
       neighborhood="Ex-Glorieta / Santa Irene"
       heroTagline="Ubicación estratégica sobre la México-Tampico para tu corte y estilo semanal."
-      description="Visita nuestra sucursal en Ex-Glorieta. Fácil acceso, ambiente cómodo y la dedicación de Johan y Chucky Barber para cuidar tu imagen con el sello VIP de Carlyn."
+      description="Visita nuestra sucursal en Ex-Glorieta. Fácil acceso, ambiente cómodo y la dedicación de Johan y Chucky Barber para cuidar tu imagen con el sello de Carlyn."
       faqs={faqs}
       jsonLd={jsonLd}
       heroImage={heroPhoto}
