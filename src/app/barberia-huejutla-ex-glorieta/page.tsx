@@ -91,8 +91,8 @@ const branchPhotos = [
   },
   {
     src: "/images/sucursales/ex-glorieta/Chucky_barber.jpeg",
-    alt: "Johan, barbero de Barbería Carlyn sucursal Ex-Glorieta",
-    title: "Johan — Barbero Oficial",
+    alt: "Chucky Barber, barbero de Barbería Carlyn sucursal Ex-Glorieta",
+    title: "Chucky Barber — Barbero Oficial",
     badge: "Barbero",
   },
 ];
