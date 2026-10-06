@@ -14,7 +14,7 @@ export const branches = [
     name: "Barbería Carlyn — Sucursal Ex-Glorieta",
     address: "Carretera Nacional México-Tampico Km 215 4, Santa Irene, 43000 Huejutla de Reyes, Hgo.",
     barber: "Johan y Chucky Barber",
-    hours: "Jueves a Martes: 9:00 AM - 8:00 PM",
+    hours: "Lunes a Domingo: 9:00 AM - 9:00 PM",
     featured: false,
   },
 ];
