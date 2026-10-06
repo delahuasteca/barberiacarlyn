@@ -98,7 +98,7 @@ export default function Hero() {
             className="group relative bg-gold text-brown-dark px-10 py-4 text-sm tracking-[0.2em] uppercase font-bold overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-gold/20"
           >
             <span className="relative z-10 group-hover:text-brown-dark transition-colors">
-              Agenda con Carlyn
+              Barber Studio Carlyn
             </span>
             <div className="absolute inset-0 bg-gold-light transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
           </a>
