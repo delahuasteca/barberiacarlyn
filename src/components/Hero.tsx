@@ -94,10 +94,10 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="#services"
+            href="#sucursales"
             className="border border-gold/40 text-gold px-10 py-4 text-sm tracking-[0.2em] uppercase font-light hover:bg-gold/10 transition-all duration-300"
           >
-            Ver Servicios
+            Ver Sucursales
           </a>
           <a
             href="/barber-studio-jacarandas-huejutla"
