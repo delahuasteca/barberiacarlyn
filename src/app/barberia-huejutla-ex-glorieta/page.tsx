@@ -89,6 +89,12 @@ const branchPhotos = [
     title: "Acceso y Entrada al Local",
     badge: "Acceso",
   },
+  {
+    src: "/images/sucursales/ex-glorieta/Chucky_barber.jpeg",
+    alt: "Johan, barbero de Barbería Carlyn sucursal Ex-Glorieta",
+    title: "Johan — Barbero Oficial",
+    badge: "Barbero",
+  },
 ];
 
 const heroPhoto = {
