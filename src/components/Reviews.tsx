@@ -19,7 +19,7 @@ export default function Reviews() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
           {branches.map((branch) => (
             <article key={branch.name} className="flex flex-col border border-gold/30 bg-gradient-to-b from-brown-medium/50 to-brown-dark p-7 sm:p-8 retro-glow">
               <Star className="w-8 h-8 text-gold mb-6" aria-hidden="true" />
