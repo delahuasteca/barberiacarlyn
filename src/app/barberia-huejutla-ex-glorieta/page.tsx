@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Barbería en Santa Irene Huejutla | Barbería Carlyn Ex-Glorieta",
     description:
-      "Barbería Carlyn en Ex-Glorieta / Santa Irene, Huejutla. Cortes de cabello y arreglo de barba atendido por Chucky Barber. Jueves a martes sin cita previa.",
+      "Barbería Carlyn en Ex-Glorieta / Santa Irene, Huejutla. Cortes de cabello y arreglo de barba atendido por Johan y Chucky Barber. Jueves a martes sin cita previa.",
     url: "https://www.barberiacarlyn.com/barberia-huejutla-ex-glorieta",
     siteName: "Barbería Carlyn",
     locale: "es_MX",
