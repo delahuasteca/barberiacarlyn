@@ -77,7 +77,7 @@ const studioJsonLd = {
   "@context": "https://schema.org",
   "@type": "Barbershop",
   "@id": "https://www.barberiacarlyn.com/barber-studio-jacarandas-huejutla#studio",
-  "name": "Barber Studio Carlyn VIP — Jacarandas",
+  "name": "Barber Studio Carlyn — Jacarandas",
   "url": "https://www.barberiacarlyn.com/barber-studio-jacarandas-huejutla",
   "telephone": "+52 771 261 3445",
   "priceRange": "$$$",
@@ -97,7 +97,7 @@ const studioJsonLd = {
   },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "Servicios Especiales y Paquetes VIP",
+    "name": "Servicios Especiales y Paquetes Premium",
     "itemListElement": packages.map((pkg) => ({
       "@type": "Offer",
       "itemOffered": {
@@ -293,7 +293,7 @@ export default function BarberStudioJacarandasPage() {
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-brown-dark/60">
                 <Image
                   src="/images/sucursales/jacarandas/Carlyn.jpeg"
-                  alt="Carlyn, barbero de Barber Studio Carlyn VIP en Jacarandas"
+                  alt="Carlyn, barbero de Barber Studio Carlyn en Jacarandas"
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   loading="lazy"
@@ -308,7 +308,7 @@ export default function BarberStudioJacarandasPage() {
                   Carlyn — Barbero de Autor
                 </p>
                 <p className="text-cream/60 text-xs mt-1 leading-snug">
-                  Atención personalizada y técnica de autor en cada corte y ritual VIP en cabina privada.
+                  Atención personalizada y técnica de autor en cada corte y ritual en espacio privado.
                 </p>
               </figcaption>
             </figure>
