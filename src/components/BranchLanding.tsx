@@ -270,7 +270,8 @@ export default function BranchLanding({
               <div className="flex items-center gap-2">
                 <UserRound className="w-4 h-4 text-gold shrink-0" aria-hidden="true" />
                 <p className="text-cream text-sm">
-                  Barbero: <strong className="text-gold">{branch.barber}</strong>
+                  {branch.barber.includes(" y ") ? "Barberos:" : "Barbero:"}{" "}
+                  <strong className="text-gold">{branch.barber}</strong>
                 </p>
               </div>
               <div className="flex items-center gap-2 text-cream/70 text-xs mt-1">
