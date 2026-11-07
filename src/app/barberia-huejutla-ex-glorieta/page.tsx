@@ -78,6 +78,12 @@ const branchPhotos = [
     badge: "Barbero",
   },
   {
+    src: "/images/sucursales/ex-glorieta/Chucky_barber.jpeg",
+    alt: "Chucky Barber, barbero de Barbería Carlyn sucursal Ex-Glorieta en Huejutla",
+    title: "Chucky Barber — Barbero Oficial",
+    badge: "Barbero",
+  },
+  {
     src: "/images/sucursales/ex-glorieta/ExGlorieta.png",
     alt: "Estación de corte y área de trabajo interior en Barbería Carlyn sucursal Ex-Glorieta",
     title: "Estación de Trabajo e Interior",
@@ -88,12 +94,6 @@ const branchPhotos = [
     alt: "Detalle del acceso y puerta de entrada en Barbería Carlyn sucursal Ex-Glorieta",
     title: "Acceso y Entrada al Local",
     badge: "Acceso",
-  },
-  {
-    src: "/images/sucursales/ex-glorieta/Chucky_barber.jpeg",
-    alt: "Chucky Barber, barbero de Barbería Carlyn sucursal Ex-Glorieta",
-    title: "Chucky Barber — Barbero Oficial",
-    badge: "Barbero",
   },
 ];
 

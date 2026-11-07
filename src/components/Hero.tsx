@@ -91,30 +91,26 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.5 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-2xl mx-auto"
         >
           <a
-            href="#branches"
-            className="border border-gold/40 text-gold px-10 py-4 text-sm tracking-[0.2em] uppercase font-light hover:bg-gold/10 transition-all duration-300"
+            href="/barberia-huejutla-aviacion-civil"
+            className="w-full sm:w-auto min-w-[200px] border border-gold/40 text-gold px-8 py-4 text-sm tracking-[0.2em] uppercase font-light text-center hover:bg-gold/10 hover:border-gold/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
           >
-            Ver Sucursales
+            Suc. Aviación
           </a>
-           <a
-            href="#services"
-            className="border border-gold/40 text-gold px-10 py-4 text-sm tracking-[0.2em] uppercase font-light hover:bg-gold/10 transition-all duration-300"
+          <a
+            href="/barberia-huejutla-ex-glorieta"
+            className="w-full sm:w-auto min-w-[200px] border border-gold/40 text-gold px-8 py-4 text-sm tracking-[0.2em] uppercase font-light text-center hover:bg-gold/10 hover:border-gold/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
           >
-            Ver Servicios
+            Suc. Ex-Glorieta
           </a>
           <a
             href="/barber-studio-jacarandas-huejutla"
-            className="group relative bg-gold text-brown-dark px-10 py-4 text-sm tracking-[0.2em] uppercase font-bold overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-gold/20"
+            className="w-full sm:w-auto min-w-[200px] border border-gold/40 text-gold px-8 py-4 text-sm tracking-[0.2em] uppercase font-light text-center hover:bg-gold/10 hover:border-gold/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
           >
-            <span className="relative z-10 group-hover:text-brown-dark transition-colors">
-              Barber Studio Carlyn
-            </span>
-            <div className="absolute inset-0 bg-gold-light transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+            Suc. Jacarandas
           </a>
-         
         </motion.div>
       </div>
 

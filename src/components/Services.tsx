@@ -5,12 +5,12 @@ import { useRef } from "react";
 import { Scissors, Crown, Flame, Star, Slice } from "lucide-react";
 
 const services = [
-  { icon: Scissors, name: "Corte de Cabello Básico", price: "$100", popular: false },
-  { icon: Star, name: "Corte de Cabello Escolar", price: "$100", popular: false },
-  { icon: Crown, name: "Corte de Cabello Personalizado", price: "$120", popular: false },
-  { icon: Flame, name: "Corte de Cabello + Arreglo de Barba", price: "$150", popular: false },
-  { icon: Scissors, name: "Arreglo de Barba", price: "$100", popular: false },
-  { icon: Slice, name: "Arreglo de Cejas", price: "$30", popular: false },
+  { icon: Scissors, name: "Corte Básico", popular: false },
+  { icon: Star, name: "Escolar", popular: false },
+  { icon: Crown, name: "Personalizado", popular: false },
+  { icon: Flame, name: "Corte + Barba", popular: false },
+  { icon: Scissors, name: "Arreglo de Barba", popular: false },
+  { icon: Slice, name: "Arreglo de Cejas", popular: false },
 ];
 
 export default function Services() {
@@ -75,16 +75,9 @@ export default function Services() {
                 <service.icon className="w-10 h-10 text-gold group-hover:scale-110 transition-transform duration-300" />
               </div>
 
-              <h3 className="font-serif text-xl font-semibold text-cream mb-6">
+              <h3 className="font-serif text-xl font-semibold text-cream">
                 {service.name}
               </h3>
-
-              <div className="flex items-end justify-between">
-                <span className="text-3xl font-serif font-bold text-gold">
-                  {service.price}
-                </span>
-                <span className="text-cream/30 text-xs">MXN</span>
-              </div>
             </motion.div>
           ))}
         </div>
