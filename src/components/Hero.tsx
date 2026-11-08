@@ -95,19 +95,19 @@ export default function Hero() {
         >
           <a
             href="/barberia-huejutla-aviacion-civil"
-            className="w-full sm:w-auto min-w-[200px] border border-gold/40 text-gold px-8 py-4 text-sm tracking-[0.2em] uppercase font-light text-center hover:bg-gold/10 hover:border-gold/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+            className="w-full sm:w-auto min-w-[200px] border-2 border-gold text-gold font-bold px-8 py-4 text-sm tracking-[0.2em] uppercase text-center hover:bg-gold hover:text-brown-dark shadow-sm hover:shadow-lg hover:shadow-gold/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300 active:scale-[0.99]"
           >
             Suc. Aviación
           </a>
           <a
             href="/barberia-huejutla-ex-glorieta"
-            className="w-full sm:w-auto min-w-[200px] border border-gold/40 text-gold px-8 py-4 text-sm tracking-[0.2em] uppercase font-light text-center hover:bg-gold/10 hover:border-gold/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+            className="w-full sm:w-auto min-w-[200px] border-2 border-gold text-gold font-bold px-8 py-4 text-sm tracking-[0.2em] uppercase text-center hover:bg-gold hover:text-brown-dark shadow-sm hover:shadow-lg hover:shadow-gold/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300 active:scale-[0.99]"
           >
             Suc. Ex-Glorieta
           </a>
           <a
             href="/barber-studio-jacarandas-huejutla"
-            className="w-full sm:w-auto min-w-[200px] border border-gold/40 text-gold px-8 py-4 text-sm tracking-[0.2em] uppercase font-light text-center hover:bg-gold/10 hover:border-gold/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
+            className="w-full sm:w-auto min-w-[200px] border-2 border-gold text-gold font-bold px-8 py-4 text-sm tracking-[0.2em] uppercase text-center hover:bg-gold hover:text-brown-dark shadow-sm hover:shadow-lg hover:shadow-gold/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300 active:scale-[0.99]"
           >
             Suc. Jacarandas
           </a>
