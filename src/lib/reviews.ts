@@ -12,7 +12,7 @@ type BranchReviews = {
   reviews: Review[];
 };
 
-export const studioReviewUrl = "https://search.google.com/local/writereview?placeid=ChIJ6cunWscn14UR8NYun6GJNJ4";
+export const studioReviewUrl = "https://digita3hub.net/r/cantores-jacarandas-y5io";
 
 // Los enlaces vacíos usan el enlace oficial de Maps definido en branches.ts.
 // writeUrl permite añadir un enlace directo al formulario de evaluación.
