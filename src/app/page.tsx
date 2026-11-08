@@ -22,7 +22,7 @@ export default function Home() {
       </main>
       <Footer />          
       <Script
-        src="https://digita3-ai.vercel.app/widget.js"
+        src="https://chatwebai.digita3hub.net/widget.js"
         data-agent="barberia-carlyn"
         strategy="afterInteractive"
       />
