@@ -21,6 +21,8 @@ export default function Home() {
         <Reviews />
       </main>
       <Footer />
+      <script src="https://chatwebai.digita3hub.net/widget.js" data-agent="barberia-carlyn"></script>
+      
       <Script
         src="https://digita3-ai.vercel.app/widget.js"
         data-agent="barberia-carlyn"
