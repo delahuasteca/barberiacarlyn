@@ -32,7 +32,7 @@ export const branchReviews: Record<string, BranchReviews> = {
     }],
   },
   "ex-glorieta": {
-    writeUrl: "https://search.google.com/local/writereview?placeid=ChIJwTB3Qzwn14URBE3l6rQGcUQ",
+    writeUrl: "https://digita3hub.net/r/ex-glorieta-jy4c",
     readUrl: "",
     reviews: [{
       author: "Nombre del cliente",
