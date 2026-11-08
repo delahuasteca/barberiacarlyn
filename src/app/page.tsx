@@ -20,9 +20,7 @@ export default function Home() {
         <SocialFeed />
         <Reviews />
       </main>
-      <Footer />
-      <script src="https://chatwebai.digita3hub.net/widget.js" data-agent="barberia-carlyn"></script>
-      
+      <Footer />          
       <Script
         src="https://digita3-ai.vercel.app/widget.js"
         data-agent="barberia-carlyn"
