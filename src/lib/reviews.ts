@@ -21,7 +21,7 @@ export const studioReviewUrl = "https://search.google.com/local/writereview?plac
 // Puedes agregar más objetos a reviews o dejar [] para mostrar el estado vacío.
 export const branchReviews: Record<string, BranchReviews> = {
   "aviacion-civil": {
-    writeUrl: "https://search.google.com/local/writereview?placeid=ChIJ_XbO2Y0n14URZ-NIOMfVCdE",
+    writeUrl: "https://digita3hub.net/r/aviacion-civil-9hw0",
     readUrl: "",
     reviews: [{
       author: "Nombre del cliente",
