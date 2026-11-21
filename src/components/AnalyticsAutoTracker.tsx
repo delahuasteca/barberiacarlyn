@@ -1,9 +1,45 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { trackEvent } from "@/lib/tracker";
+import { BranchId } from "@/types/analytics";
+
+const BRANCH_LANDING_MAP: Record<string, BranchId> = {
+  "/barberia-huejutla-aviacion-civil": "aviacion-civil",
+  "/barberia-huejutla-ex-glorieta": "ex-glorieta",
+  "/barber-studio-jacarandas-huejutla": "jacarandas",
+};
 
 export default function AnalyticsAutoTracker() {
+  const pathname = usePathname();
+  const lastTrackedPathRef = useRef<string | null>(null);
+
+  // Track direct navigation to any of the 3 branch landing pages without duplicates
+  useEffect(() => {
+    if (!pathname) return;
+    const normalizedPath = pathname.endsWith("/") && pathname.length > 1
+      ? pathname.slice(0, -1)
+      : pathname;
+    const branchId = BRANCH_LANDING_MAP[normalizedPath];
+
+    if (!branchId) {
+      lastTrackedPathRef.current = normalizedPath;
+      return;
+    }
+
+    if (lastTrackedPathRef.current === normalizedPath) {
+      return;
+    }
+
+    lastTrackedPathRef.current = normalizedPath;
+
+    trackEvent("branch_view", {
+      source: "direct_landing_view",
+      branchId,
+    });
+  }, [pathname]);
+
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       const target = (e.target as HTMLElement).closest("a");
@@ -14,7 +50,7 @@ export default function AnalyticsAutoTracker() {
 
       // Detect WhatsApp clicks
       if (href.includes("wa.me") || href.includes("whatsapp.com") || text.includes("whatsapp") || text.includes("agendar")) {
-        let branchId: "aviacion-civil" | "ex-glorieta" | "jacarandas" | undefined = undefined;
+        let branchId: BranchId | undefined = undefined;
         if (href.includes("aviacion") || window.location.pathname.includes("aviacion")) {
           branchId = "aviacion-civil";
         } else if (href.includes("glorieta") || window.location.pathname.includes("glorieta")) {
@@ -33,7 +69,7 @@ export default function AnalyticsAutoTracker() {
 
       // Detect Google Maps Reviews clicks
       if (text.includes("reseña") || href.includes("writereview") || href.includes("digita3hub.net/r/")) {
-        let branchId: "aviacion-civil" | "ex-glorieta" | "jacarandas" | undefined = undefined;
+        let branchId: BranchId | undefined = undefined;
         if (window.location.pathname.includes("aviacion") || href.includes("aviacion")) {
           branchId = "aviacion-civil";
         } else if (window.location.pathname.includes("glorieta") || href.includes("glorieta")) {
