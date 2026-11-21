@@ -1,17 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getOwnerPassword, generateSessionToken, OWNER_SESSION_COOKIE } from "@/lib/auth";
+import {
+  isAuthConfigured,
+  verifyOwnerPassword,
+  generateSessionToken,
+  OWNER_SESSION_COOKIE,
+} from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   try {
+    if (!isAuthConfigured()) {
+      return NextResponse.json(
+        { error: "Autenticación no configurada en el servidor" },
+        { status: 503 }
+      );
+    }
+
     const { password } = await request.json();
 
-    if (!password) {
+    if (!password || typeof password !== "string") {
       return NextResponse.json({ error: "Contraseña requerida" }, { status: 400 });
     }
 
-    const expected = getOwnerPassword();
-
-    if (password !== expected) {
+    if (!verifyOwnerPassword(password)) {
       // Simulate small timing delay against brute force
       await new Promise((r) => setTimeout(r, 400));
       return NextResponse.json({ error: "Credenciales no válidas" }, { status: 401 });
@@ -32,9 +42,9 @@ export async function POST(request: NextRequest) {
     });
 
     return response;
-  } catch (err) {
+  } catch {
     return NextResponse.json(
-      { error: "Error en autenticación", details: (err as Error).message },
+      { error: "Error en autenticación" },
       { status: 500 }
     );
   }
