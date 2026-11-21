@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Lato } from "next/font/google";
 import "./globals.css";
+import AnalyticsAutoTracker from "@/components/AnalyticsAutoTracker";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -166,7 +167,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col noise-overlay">{children}</body>
+      <body className="min-h-full flex flex-col noise-overlay">
+        <AnalyticsAutoTracker />
+        {children}
+      </body>
     </html>
   );
 }

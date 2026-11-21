@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Scissors, Crown, Flame, Star, Slice } from "lucide-react";
+import { trackEvent } from "@/lib/tracker";
 
 const services = [
   { icon: Scissors, name: "Corte Básico", popular: false },
@@ -58,7 +59,13 @@ export default function Services() {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 * i }}
-              className={`relative group p-8 transition-all duration-500 ${
+              onClick={() => {
+                trackEvent("service_view", {
+                  source: "services_grid",
+                  serviceName: service.name,
+                });
+              }}
+              className={`relative group p-8 transition-all duration-500 cursor-pointer ${
                 service.popular
                   ? "bg-gradient-to-br from-brown-medium/80 to-brown-warm/30 border border-gold/30 retro-glow"
                   : "bg-brown-medium/30 border border-gold/10 hover:border-gold/30"

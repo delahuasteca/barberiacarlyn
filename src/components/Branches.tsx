@@ -7,9 +7,11 @@ import { MapPin, Clock, UserRound, CalendarX, CalendarCheck, Star } from "lucide
 
 import { branches, branchMapsLink, studioMapsUrl } from "@/lib/branches";
 import { branchReviews, studioReviewUrl } from "@/lib/reviews";
+import { trackEvent } from "@/lib/tracker";
+import { BranchId } from "@/types/analytics";
 
 interface BranchCardData {
-  id: string;
+  id: BranchId;
   name: string;
   address: string;
   barber: string;
@@ -150,6 +152,12 @@ export default function Branches() {
                 <div className="text-center py-1">
                   <Link
                     href={branch.landingUrl}
+                    onClick={() => {
+                      trackEvent("branch_view", {
+                        source: "branch_card_details",
+                        branchId: branch.id,
+                      });
+                    }}
                     className="inline-block text-sm font-medium text-gold hover:text-gold-light underline underline-offset-4 hover:underline-offset-2 transition-all duration-200 tracking-wide focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
                   >
                     Ver detalles de esta sucursal &rarr;
@@ -161,6 +169,12 @@ export default function Branches() {
                   href={branch.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    trackEvent("branch_view", {
+                      source: "branch_card_maps",
+                      branchId: branch.id,
+                    });
+                  }}
                   aria-label={`Cómo llegar a ${branch.name} en Google Maps (abrir en nueva pestaña)`}
                   className="w-full min-h-[52px] px-5 py-3.5 border-2 border-gold text-gold font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2 shadow-sm hover:bg-gold hover:text-brown-dark hover:shadow-lg hover:shadow-gold/20 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
                 >
@@ -173,6 +187,12 @@ export default function Branches() {
                   href={branch.reviewsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    trackEvent("review_click", {
+                      source: "branch_card_reviews",
+                      branchId: branch.id,
+                    });
+                  }}
                   aria-label={`Ver y calificar reseñas de ${branch.name} en Google Maps (abrir en nueva pestaña)`}
                   className="w-full min-h-[44px] px-4 py-2.5 border-2 border-gold/70 text-gold text-xs tracking-wider uppercase font-bold flex items-center justify-center gap-2 hover:bg-gold/10 hover:border-gold hover:text-cream active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold transition-all duration-300"
                 >
