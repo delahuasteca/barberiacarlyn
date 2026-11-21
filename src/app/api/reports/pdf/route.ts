@@ -15,9 +15,11 @@ export async function GET(request: NextRequest) {
   const customEnd = searchParams.get("end") || undefined;
 
   const { start, end } = getFilterDates(preset, customStart, customEnd);
-  const allEvents = getStoredEvents();
+  const [allEvents, integrations] = await Promise.all([
+    getStoredEvents({ startDate: start, endDate: end, includeTest: false }),
+    getIntegrationsHealth(),
+  ]);
   const metrics = aggregateMetrics(allEvents, start, end);
-  const integrations = await getIntegrationsHealth();
 
   const periodLabel = `${start.toLocaleDateString("es-MX", { timeZone: "America/Mexico_City" })} al ${end.toLocaleDateString("es-MX", { timeZone: "America/Mexico_City" })}`;
   const generatedAt = new Date().toLocaleString("es-MX", { timeZone: "America/Mexico_City" });
@@ -240,7 +242,7 @@ export async function GET(request: NextRequest) {
   y -= 15;
 
   const integrationList = [
-    integrations.chatWeb,
+    integrations.chatweb,
     integrations.supabase,
     integrations.ga4,
     integrations.gsc,

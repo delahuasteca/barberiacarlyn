@@ -1,12 +1,20 @@
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
-import { AnalyticsEvent, AnalyticsEventType, InteractionStage, BranchId, MetricSummary } from "@/types/analytics";
+import {
+  AnalyticsEvent,
+  AnalyticsEventType,
+  InteractionStage,
+  BranchId,
+  MetricSummary,
+} from "@/types/analytics";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabaseAdmin";
 
 const DATA_DIR = path.join(process.cwd(), ".data");
 const EVENTS_FILE = path.join(DATA_DIR, "analytics_events.json");
+const TABLE_NAME = "analytics_events";
 
-// Ensure local persistence directory exists
+// Ensure local persistence directory exists (dev/fallback only)
 function ensureStorage() {
   if (!fs.existsSync(DATA_DIR)) {
     try {
@@ -17,12 +25,44 @@ function ensureStorage() {
   }
 }
 
-// Memory fallback store for environments without persistent local filesystem
+// Memory fallback store for environments without persistent local filesystem or Supabase
 let memoryEvents: AnalyticsEvent[] = [];
 
-// Clean deduplication cache in-memory with TTL (e.g., prevent duplicate double clicks within 15 seconds)
+// Local deduplication cache (used only when Supabase is not configured)
 const dedupCache = new Map<string, number>();
 const DEDUP_WINDOW_MS = 15000;
+
+interface SupabaseEventRow {
+  id: string;
+  type: AnalyticsEventType;
+  stage: InteractionStage;
+  timestamp: string;
+  branch_id: BranchId | null;
+  service_name: string | null;
+  source: string;
+  origin_url: string;
+  session_id: string;
+  dedup_key: string | null;
+  metadata: Record<string, unknown> | null;
+  is_test: boolean;
+}
+
+function rowToEvent(row: SupabaseEventRow): AnalyticsEvent {
+  return {
+    id: row.id,
+    type: row.type,
+    stage: row.stage,
+    timestamp: row.timestamp,
+    branchId: row.branch_id || undefined,
+    serviceName: row.service_name || undefined,
+    source: row.source,
+    originUrl: row.origin_url,
+    sessionId: row.session_id,
+    dedupKey: row.dedup_key || undefined,
+    metadata: row.metadata || undefined,
+    isTest: Boolean(row.is_test),
+  };
+}
 
 /**
  * Maps event type to the strict interaction stage.
@@ -46,10 +86,7 @@ export function mapTypeToStage(type: AnalyticsEventType): InteractionStage {
   }
 }
 
-/**
- * Loads events from file or memory.
- */
-export function getStoredEvents(): AnalyticsEvent[] {
+function readLocalEvents(): AnalyticsEvent[] {
   ensureStorage();
   if (fs.existsSync(EVENTS_FILE)) {
     try {
@@ -65,23 +102,74 @@ export function getStoredEvents(): AnalyticsEvent[] {
   return memoryEvents;
 }
 
-/**
- * Saves events to storage or memory.
- */
-function saveEvents(events: AnalyticsEvent[]) {
+function writeLocalEvents(events: AnalyticsEvent[]) {
   ensureStorage();
   memoryEvents = events;
   try {
     fs.writeFileSync(EVENTS_FILE, JSON.stringify(events, null, 2), "utf-8");
   } catch {
-    // In serverless, memory fallback is used
+    // In serverless without Supabase, memory fallback is used
   }
 }
 
+export interface StoredEventsQuery {
+  startDate?: Date;
+  endDate?: Date;
+  includeTest?: boolean;
+}
+
 /**
- * Records an analytics event with validation, deduplication, and safe sanitization.
+ * Loads events asynchronously from Supabase (when configured) or local storage.
+ * Excludes test events (`is_test = true`) by default to keep commercial metrics clean.
  */
-export function recordEvent(raw: {
+export async function getStoredEvents(
+  options: StoredEventsQuery = {}
+): Promise<AnalyticsEvent[]> {
+  const { startDate, endDate, includeTest = false } = options;
+  const supabase = getSupabaseAdmin();
+
+  if (supabase) {
+    let query = supabase
+      .from(TABLE_NAME)
+      .select(
+        "id, type, stage, timestamp, branch_id, service_name, source, origin_url, session_id, dedup_key, metadata, is_test"
+      )
+      .order("timestamp", { ascending: true })
+      .limit(20000);
+
+    if (!includeTest) {
+      query = query.eq("is_test", false);
+    }
+    if (startDate) {
+      query = query.gte("timestamp", startDate.toISOString());
+    }
+    if (endDate) {
+      query = query.lte("timestamp", endDate.toISOString());
+    }
+
+    const { data, error } = await query;
+    if (error) {
+      throw new Error(`Supabase read error: ${error.message}`);
+    }
+    return (data as SupabaseEventRow[] | null)?.map(rowToEvent) || [];
+  }
+
+  // Local fallback (development / pre-Supabase)
+  const all = readLocalEvents();
+  return all.filter((e) => {
+    if (!includeTest && e.isTest) return false;
+    const t = new Date(e.timestamp).getTime();
+    if (startDate && t < startDate.getTime()) return false;
+    if (endDate && t > endDate.getTime()) return false;
+    return true;
+  });
+}
+
+/**
+ * Records an analytics event asynchronously with validation, deduplication, and safe sanitization.
+ * Persists to Supabase `analytics_events` via Service Role when configured.
+ */
+export async function recordEvent(raw: {
   type: AnalyticsEventType;
   source: string;
   originUrl?: string;
@@ -89,29 +177,22 @@ export function recordEvent(raw: {
   serviceName?: string;
   sessionId?: string;
   metadata?: Record<string, unknown>;
-}): { success: boolean; deduplicated?: boolean; event?: AnalyticsEvent } {
+  isTest?: boolean;
+}): Promise<{
+  success: boolean;
+  deduplicated?: boolean;
+  storage: "supabase" | "local";
+  event?: AnalyticsEvent;
+}> {
   const now = Date.now();
-  const sessionId = raw.sessionId || "anon_" + crypto.randomBytes(8).toString("hex");
+  const sessionId = (raw.sessionId || "anon_" + crypto.randomBytes(8).toString("hex")).slice(0, 80);
   const branchId = raw.branchId;
   const source = (raw.source || "unknown").slice(0, 50);
   const originUrl = (raw.originUrl || "/").slice(0, 200);
+  const serviceName = raw.serviceName ? String(raw.serviceName).slice(0, 60) : undefined;
+  const isTest = Boolean(raw.isTest);
 
-  // Compute deduplication key
-  const dedupKey = `${sessionId}_${raw.type}_${branchId || "all"}_${raw.serviceName || ""}_${source}`;
-  const lastTimestamp = dedupCache.get(dedupKey);
-
-  if (lastTimestamp && now - lastTimestamp < DEDUP_WINDOW_MS) {
-    return { success: true, deduplicated: true };
-  }
-  dedupCache.set(dedupKey, now);
-
-  // Clean stale keys periodically
-  if (dedupCache.size > 2000) {
-    for (const [k, ts] of dedupCache.entries()) {
-      if (now - ts > DEDUP_WINDOW_MS) dedupCache.delete(k);
-    }
-  }
-
+  const dedupKey = `${sessionId}_${raw.type}_${branchId || "all"}_${serviceName || ""}_${source}_${isTest ? "test" : "real"}`;
   const stage = mapTypeToStage(raw.type);
 
   const event: AnalyticsEvent = {
@@ -120,28 +201,88 @@ export function recordEvent(raw: {
     stage,
     timestamp: new Date(now).toISOString(),
     branchId,
-    serviceName: raw.serviceName ? String(raw.serviceName).slice(0, 60) : undefined,
+    serviceName,
     source,
     originUrl,
     sessionId,
     dedupKey,
     metadata: raw.metadata,
+    isTest,
   };
 
-  const existing = getStoredEvents();
+  const supabase = getSupabaseAdmin();
+
+  if (supabase) {
+    // Persistent cross-instance deduplication window (15s)
+    const windowStartIso = new Date(now - DEDUP_WINDOW_MS).toISOString();
+    const { data: recent, error: dedupError } = await supabase
+      .from(TABLE_NAME)
+      .select("id")
+      .eq("dedup_key", dedupKey)
+      .gte("timestamp", windowStartIso)
+      .limit(1);
+
+    if (dedupError) {
+      throw new Error(`Supabase dedup check error: ${dedupError.message}`);
+    }
+
+    if (recent && recent.length > 0) {
+      return { success: true, deduplicated: true, storage: "supabase" };
+    }
+
+    const { error: insertError } = await supabase.from(TABLE_NAME).insert({
+      id: event.id,
+      type: event.type,
+      stage: event.stage,
+      timestamp: event.timestamp,
+      branch_id: event.branchId ?? null,
+      service_name: event.serviceName ?? null,
+      source: event.source,
+      origin_url: event.originUrl,
+      session_id: event.sessionId,
+      dedup_key: event.dedupKey,
+      metadata: event.metadata ?? null,
+      is_test: event.isTest,
+    });
+
+    if (insertError) {
+      throw new Error(`Supabase insert error: ${insertError.message}`);
+    }
+
+    return { success: true, deduplicated: false, storage: "supabase", event };
+  }
+
+  // Local fallback deduplication & storage
+  const lastTimestamp = dedupCache.get(dedupKey);
+  if (lastTimestamp && now - lastTimestamp < DEDUP_WINDOW_MS) {
+    return { success: true, deduplicated: true, storage: "local" };
+  }
+  dedupCache.set(dedupKey, now);
+
+  if (dedupCache.size > 2000) {
+    for (const [k, ts] of dedupCache.entries()) {
+      if (now - ts > DEDUP_WINDOW_MS) dedupCache.delete(k);
+    }
+  }
+
+  const existing = readLocalEvents();
   existing.push(event);
 
-  // Keep up to 20,000 events locally to avoid unbound file growth
   if (existing.length > 20000) {
     existing.splice(0, existing.length - 20000);
   }
 
-  saveEvents(existing);
-  return { success: true, event };
+  writeLocalEvents(existing);
+  return { success: true, deduplicated: false, storage: "local", event };
+}
+
+export function getAnalyticsStorageMode(): "supabase" | "local_ephemeral" {
+  return isSupabaseConfigured() ? "supabase" : "local_ephemeral";
 }
 
 /**
  * Aggregates events for a given date window.
+ * Always excludes `isTest: true` events as a safeguard against test contamination.
  */
 export function aggregateMetrics(
   events: AnalyticsEvent[],
@@ -149,11 +290,15 @@ export function aggregateMetrics(
   endDate: Date
 ): MetricSummary {
   const filtered = events.filter((e) => {
+    if (e.isTest) return false;
     const t = new Date(e.timestamp).getTime();
     return t >= startDate.getTime() && t <= endDate.getTime();
   });
 
-  const branchBreakdown: Record<BranchId, { views: number; whatsappClicks: number; bookingRequests: number; reviewClicks: number }> = {
+  const branchBreakdown: Record<
+    BranchId,
+    { views: number; whatsappClicks: number; bookingRequests: number; reviewClicks: number }
+  > = {
     "aviacion-civil": { views: 0, whatsappClicks: 0, bookingRequests: 0, reviewClicks: 0 },
     "ex-glorieta": { views: 0, whatsappClicks: 0, bookingRequests: 0, reviewClicks: 0 },
     jacarandas: { views: 0, whatsappClicks: 0, bookingRequests: 0, reviewClicks: 0 },
@@ -167,7 +312,6 @@ export function aggregateMetrics(
   let totalContacts = 0;
   let totalBookingRequests = 0;
 
-  // Use unique sessions for visit count estimation
   const uniqueSessions = new Set<string>();
 
   for (const ev of filtered) {
@@ -196,7 +340,6 @@ export function aggregateMetrics(
     .map(([name, views]) => ({ name, views }))
     .sort((a, b) => b.views - a.views);
 
-  // Conversion rates (safely bounded)
   const visitToContact = totalVisits > 0 ? (totalContacts / totalVisits) * 100 : 0;
   const contactToBookingRequest =
     totalContacts > 0 ? (totalBookingRequests / totalContacts) * 100 : 0;
@@ -207,9 +350,9 @@ export function aggregateMetrics(
     totalClicks,
     totalContacts,
     totalBookingRequests,
-    // Explicitly labeled as distinct estimates, never assumed automatically as executed revenue
-    confirmedBookingsEstimate: Math.round(totalBookingRequests * 0.75),
-    completedServicesEstimate: Math.round(totalBookingRequests * 0.65),
+    // Do not invent confirmed bookings or completed services from raw clicks
+    confirmedBookingsEstimate: 0,
+    completedServicesEstimate: 0,
     branchBreakdown,
     topServices,
     conversionRates: {
@@ -222,7 +365,11 @@ export function aggregateMetrics(
 /**
  * Returns preset start/end dates for standard filter options.
  */
-export function getFilterDates(preset: string, customStart?: string, customEnd?: string): { start: Date; end: Date } {
+export function getFilterDates(
+  preset: string,
+  customStart?: string,
+  customEnd?: string
+): { start: Date; end: Date } {
   const now = new Date();
   const end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
   let start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7, 0, 0, 0, 0);

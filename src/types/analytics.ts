@@ -30,6 +30,7 @@ export interface AnalyticsEvent {
   sessionId: string;
   dedupKey?: string;
   metadata?: Record<string, unknown>;
+  isTest?: boolean;
 }
 
 export interface MetricSummary {

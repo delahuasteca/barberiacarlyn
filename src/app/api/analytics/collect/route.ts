@@ -24,20 +24,34 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid event type" }, { status: 400 });
     }
 
-    const result = recordEvent({
+    const validBranches: BranchId[] = ["aviacion-civil", "ex-glorieta", "jacarandas"];
+    const branchId =
+      body.branchId && validBranches.includes(body.branchId)
+        ? (body.branchId as BranchId)
+        : undefined;
+
+    const isTest =
+      Boolean(body.isTest) || request.headers.get("x-analytics-test") === "1";
+
+    const result = await recordEvent({
       type: body.type,
       source: body.source,
       originUrl: body.originUrl,
-      branchId: body.branchId as BranchId | undefined,
+      branchId,
       serviceName: body.serviceName,
       sessionId: body.sessionId,
       metadata: body.metadata,
+      isTest,
     });
 
-    return NextResponse.json({ ok: true, deduplicated: result.deduplicated });
-  } catch (err) {
+    return NextResponse.json({
+      ok: true,
+      deduplicated: result.deduplicated,
+      storage: result.storage,
+    });
+  } catch {
     return NextResponse.json(
-      { error: "Internal collection error", details: (err as Error).message },
+      { error: "Internal collection error" },
       { status: 500 }
     );
   }

@@ -74,12 +74,15 @@ export async function getIntegrationsHealth(): Promise<Record<string, Integratio
     chatWebConnected = false;
   }
 
-  // 4. Supabase Status
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+  // 4. Supabase Status (requires both URL and server-side Service Role key)
+  const supabaseUrl = (process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || "").trim();
+  const supabaseServiceKey = (process.env.SUPABASE_SERVICE_ROLE_KEY || "").trim();
   const supabaseConnected = Boolean(
     supabaseUrl &&
     !supabaseUrl.includes("your_supabase_project_url_here") &&
-    supabaseUrl.startsWith("https://")
+    supabaseUrl.startsWith("https://") &&
+    supabaseServiceKey &&
+    !supabaseServiceKey.includes("your_supabase")
   );
 
   return {
