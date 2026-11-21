@@ -59,3 +59,6 @@ alter table public.analytics_events force row level security;
 
 -- Explicitly revoke direct access from public/anon/authenticated client roles
 revoke all on table public.analytics_events from anon, authenticated, public;
+
+-- Explicitly grant full backend access to service_role
+grant all on table public.analytics_events to service_role;
