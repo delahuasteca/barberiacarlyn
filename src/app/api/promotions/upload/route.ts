@@ -120,10 +120,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Priority 2: Supabase Storage (free bucket 'promotions', zero extra env vars in Preview)
+    // Priority 2: Supabase Storage (free bucket 'Promotions', zero extra env vars in Preview)
     const supabase = getSupabaseAdmin();
     if (supabase) {
-      const bucket = (process.env.PROMOTIONS_STORAGE_BUCKET || "promotions").trim();
+      const bucket = (process.env.PROMOTIONS_STORAGE_BUCKET || "Promotions").trim();
       const uploadBody = new Uint8Array(arrayBuffer);
 
       const { error: uploadError } = await supabase.storage
@@ -176,7 +176,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error:
-          "Almacenamiento de imágenes aún no activado. Configura Vercel Blob (BLOB_READ_WRITE_TOKEN) o el bucket público 'promotions' en Supabase Storage, o pega una URL HTTPS manualmente.",
+          "Almacenamiento de imágenes aún no activado. Configura Vercel Blob (BLOB_READ_WRITE_TOKEN) o el bucket público 'Promotions' en Supabase Storage, o pega una URL HTTPS manualmente.",
       },
       { status: 503 }
     );
