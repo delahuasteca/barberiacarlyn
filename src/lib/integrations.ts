@@ -1,3 +1,5 @@
+import { isNeonConfigured } from "@/lib/neonDb";
+
 export interface IntegrationStatus {
   service: "GA4" | "SearchConsole" | "ChatWebAI" | "Supabase";
   name: string;
@@ -74,7 +76,8 @@ export async function getIntegrationsHealth(): Promise<Record<string, Integratio
     chatWebConnected = false;
   }
 
-  // 4. Supabase Status (requires both URL and server-side Service Role key)
+  // 4. Primary Database Status (Priority: Neon DATABASE_URL -> Supabase)
+  const neonConnected = isNeonConfigured();
   const supabaseUrl = (process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || "").trim();
   const supabaseServiceKey = (process.env.SUPABASE_SERVICE_ROLE_KEY || "").trim();
   const supabaseConnected = Boolean(
@@ -121,12 +124,18 @@ export async function getIntegrationsHealth(): Promise<Record<string, Integratio
     },
     supabase: {
       service: "Supabase",
-      name: "Base de Datos Supabase",
-      connected: supabaseConnected,
-      configuredId: supabaseConnected ? supabaseUrl.replace(/https:\/\/(.*?)\..*/, "$1") : "No configurado",
-      statusMessage: supabaseConnected
-        ? "Conexión remota establecida."
-        : "Persistencia local de eventos activa; Supabase en espera de credenciales de producción.",
+      name: neonConnected ? "Base de Datos Neon (PostgreSQL)" : "Base de Datos Supabase",
+      connected: neonConnected || supabaseConnected,
+      configuredId: neonConnected
+        ? "Neon PostgreSQL"
+        : supabaseConnected
+          ? supabaseUrl.replace(/https:\/\/(.*?)\..*/, "$1")
+          : "No configurado",
+      statusMessage: neonConnected
+        ? "Conexión persistente activa en Neon PostgreSQL."
+        : supabaseConnected
+          ? "Conexión remota establecida."
+          : "Persistencia local de eventos activa; base remota en espera de credenciales.",
       lastChecked: now,
       metricsAvailable: true,
     },

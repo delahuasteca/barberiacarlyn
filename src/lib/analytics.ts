@@ -8,6 +8,7 @@ import {
   BranchId,
   MetricSummary,
 } from "@/types/analytics";
+import { getNeonSql, isNeonConfigured } from "@/lib/neonDb";
 import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabaseAdmin";
 
 const DATA_DIR = path.join(process.cwd(), ".data");
@@ -25,18 +26,18 @@ function ensureStorage() {
   }
 }
 
-// Memory fallback store for environments without persistent local filesystem or Supabase
+// Memory fallback store for environments without persistent local filesystem or DB
 let memoryEvents: AnalyticsEvent[] = [];
 
-// Local deduplication cache (used only when Supabase is not configured)
+// Local deduplication cache (used only when neither Neon nor Supabase is configured)
 const dedupCache = new Map<string, number>();
 const DEDUP_WINDOW_MS = 15000;
 
-interface SupabaseEventRow {
+interface DatabaseEventRow {
   id: string;
   type: AnalyticsEventType;
   stage: InteractionStage;
-  timestamp: string;
+  timestamp: string | Date;
   branch_id: BranchId | null;
   service_name: string | null;
   source: string;
@@ -47,12 +48,15 @@ interface SupabaseEventRow {
   is_test: boolean;
 }
 
-function rowToEvent(row: SupabaseEventRow): AnalyticsEvent {
+function rowToEvent(row: DatabaseEventRow): AnalyticsEvent {
   return {
     id: row.id,
     type: row.type,
     stage: row.stage,
-    timestamp: row.timestamp,
+    timestamp:
+      row.timestamp instanceof Date
+        ? row.timestamp.toISOString()
+        : String(row.timestamp),
     branchId: row.branch_id || undefined,
     serviceName: row.service_name || undefined,
     source: row.source,
@@ -108,7 +112,7 @@ function writeLocalEvents(events: AnalyticsEvent[]) {
   try {
     fs.writeFileSync(EVENTS_FILE, JSON.stringify(events, null, 2), "utf-8");
   } catch {
-    // In serverless without Supabase, memory fallback is used
+    // In serverless without DB, memory fallback is used
   }
 }
 
@@ -119,15 +123,39 @@ export interface StoredEventsQuery {
 }
 
 /**
- * Loads events asynchronously from Supabase (when configured) or local storage.
+ * Loads events asynchronously using priority:
+ * 1. Neon PostgreSQL (DATABASE_URL)
+ * 2. Supabase (SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY)
+ * 3. Local storage fallback
  * Excludes test events (`is_test = true`) by default to keep commercial metrics clean.
  */
 export async function getStoredEvents(
   options: StoredEventsQuery = {}
 ): Promise<AnalyticsEvent[]> {
   const { startDate, endDate, includeTest = false } = options;
-  const supabase = getSupabaseAdmin();
 
+  // Priority 1: Neon PostgreSQL
+  const neonSql = getNeonSql();
+  if (neonSql) {
+    const startIso = startDate ? startDate.toISOString() : null;
+    const endIso = endDate ? endDate.toISOString() : null;
+    const rows = (await neonSql`
+      SELECT
+        id, type, stage, timestamp, branch_id, service_name,
+        source, origin_url, session_id, dedup_key, metadata, is_test
+      FROM public.analytics_events
+      WHERE (${includeTest}::boolean = true OR is_test = false)
+        AND (${startIso}::timestamptz IS NULL OR timestamp >= ${startIso}::timestamptz)
+        AND (${endIso}::timestamptz IS NULL OR timestamp <= ${endIso}::timestamptz)
+      ORDER BY timestamp ASC
+      LIMIT 20000
+    `) as DatabaseEventRow[];
+
+    return rows.map(rowToEvent);
+  }
+
+  // Priority 2: Supabase (Preview intact)
+  const supabase = getSupabaseAdmin();
   if (supabase) {
     let query = supabase
       .from(TABLE_NAME)
@@ -151,10 +179,10 @@ export async function getStoredEvents(
     if (error) {
       throw new Error(`Supabase read error: ${error.message}`);
     }
-    return (data as SupabaseEventRow[] | null)?.map(rowToEvent) || [];
+    return (data as DatabaseEventRow[] | null)?.map(rowToEvent) || [];
   }
 
-  // Local fallback (development / pre-Supabase)
+  // Priority 3: Local fallback (development / no DB configured)
   const all = readLocalEvents();
   return all.filter((e) => {
     if (!includeTest && e.isTest) return false;
@@ -167,7 +195,7 @@ export async function getStoredEvents(
 
 /**
  * Records an analytics event asynchronously with validation, deduplication, and safe sanitization.
- * Persists to Supabase `analytics_events` via Service Role when configured.
+ * Priority: Neon (DATABASE_URL) -> Supabase (SUPABASE_*) -> local storage.
  */
 export async function recordEvent(raw: {
   type: AnalyticsEventType;
@@ -181,11 +209,13 @@ export async function recordEvent(raw: {
 }): Promise<{
   success: boolean;
   deduplicated?: boolean;
-  storage: "supabase" | "local";
+  storage: "neon" | "supabase" | "local";
   event?: AnalyticsEvent;
 }> {
   const now = Date.now();
-  const sessionId = (raw.sessionId || "anon_" + crypto.randomBytes(8).toString("hex")).slice(0, 80);
+  const sessionId = (
+    raw.sessionId || "anon_" + crypto.randomBytes(8).toString("hex")
+  ).slice(0, 80);
   const branchId = raw.branchId;
   const source = (raw.source || "unknown").slice(0, 50);
   const originUrl = (raw.originUrl || "/").slice(0, 200);
@@ -210,10 +240,49 @@ export async function recordEvent(raw: {
     isTest,
   };
 
-  const supabase = getSupabaseAdmin();
+  // Priority 1: Neon PostgreSQL
+  const neonSql = getNeonSql();
+  if (neonSql) {
+    const windowStartIso = new Date(now - DEDUP_WINDOW_MS).toISOString();
+    const recent = (await neonSql`
+      SELECT id
+      FROM public.analytics_events
+      WHERE dedup_key = ${dedupKey}
+        AND timestamp >= ${windowStartIso}::timestamptz
+      LIMIT 1
+    `) as Array<{ id: string }>;
 
+    if (recent.length > 0) {
+      return { success: true, deduplicated: true, storage: "neon" };
+    }
+
+    const metadataJson = event.metadata ? JSON.stringify(event.metadata) : null;
+    await neonSql`
+      INSERT INTO public.analytics_events (
+        id, type, stage, timestamp, branch_id, service_name,
+        source, origin_url, session_id, dedup_key, metadata, is_test
+      ) VALUES (
+        ${event.id},
+        ${event.type},
+        ${event.stage},
+        ${event.timestamp}::timestamptz,
+        ${event.branchId ?? null},
+        ${event.serviceName ?? null},
+        ${event.source},
+        ${event.originUrl},
+        ${event.sessionId},
+        ${event.dedupKey ?? ""},
+        ${metadataJson}::jsonb,
+        ${event.isTest ?? false}
+      )
+    `;
+
+    return { success: true, deduplicated: false, storage: "neon", event };
+  }
+
+  // Priority 2: Supabase (Preview intact)
+  const supabase = getSupabaseAdmin();
   if (supabase) {
-    // Persistent cross-instance deduplication window (15s)
     const windowStartIso = new Date(now - DEDUP_WINDOW_MS).toISOString();
     const { data: recent, error: dedupError } = await supabase
       .from(TABLE_NAME)
@@ -252,7 +321,7 @@ export async function recordEvent(raw: {
     return { success: true, deduplicated: false, storage: "supabase", event };
   }
 
-  // Local fallback deduplication & storage
+  // Priority 3: Local fallback deduplication & storage
   const lastTimestamp = dedupCache.get(dedupKey);
   if (lastTimestamp && now - lastTimestamp < DEDUP_WINDOW_MS) {
     return { success: true, deduplicated: true, storage: "local" };
@@ -276,8 +345,10 @@ export async function recordEvent(raw: {
   return { success: true, deduplicated: false, storage: "local", event };
 }
 
-export function getAnalyticsStorageMode(): "supabase" | "local_ephemeral" {
-  return isSupabaseConfigured() ? "supabase" : "local_ephemeral";
+export function getAnalyticsStorageMode(): "neon" | "supabase" | "local_ephemeral" {
+  if (isNeonConfigured()) return "neon";
+  if (isSupabaseConfigured()) return "supabase";
+  return "local_ephemeral";
 }
 
 /**
