@@ -30,7 +30,7 @@ const jsonLd = {
   "hasMap": "https://maps.app.goo.gl/gXseXXVcrJTq7D7d8",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Carretera Nacional México-Tampico Km 215 4, Santa Irene",
+    "streetAddress": "Carretera Nacional México-Tampico Km 215, Santa Irene",
     "addressLocality": "Huejutla de Reyes",
     "addressRegion": "Hidalgo",
     "postalCode": "43000",
