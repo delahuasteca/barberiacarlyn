@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Lato } from "next/font/google";
 import "./globals.css";
 import AnalyticsAutoTracker from "@/components/AnalyticsAutoTracker";
+import PromotionModal from "@/components/PromotionModal";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -169,6 +170,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col noise-overlay">
         <AnalyticsAutoTracker />
+        <PromotionModal />
         {children}
       </body>
     </html>
