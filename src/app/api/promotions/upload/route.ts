@@ -96,12 +96,12 @@ export async function POST(request: NextRequest) {
     }
 
     const ext = ALLOWED_MIME_TO_EXT[detectedMime];
-    const filename = `promotions/promo-${Date.now()}-${crypto.randomBytes(6).toString("hex")}.${ext}`;
+    const objectName = `promo-${Date.now()}-${crypto.randomBytes(6).toString("hex")}.${ext}`;
 
     // Priority 1: Vercel Blob (when BLOB_READ_WRITE_TOKEN is configured)
     const blobToken = (process.env.BLOB_READ_WRITE_TOKEN || "").trim();
     if (blobToken) {
-      const blob = await put(filename, buffer, {
+      const blob = await put(`promotions/${objectName}`, buffer, {
         access: "public",
         contentType: detectedMime,
         token: blobToken,
@@ -124,24 +124,39 @@ export async function POST(request: NextRequest) {
     const supabase = getSupabaseAdmin();
     if (supabase) {
       const bucket = (process.env.PROMOTIONS_STORAGE_BUCKET || "promotions").trim();
+      const uploadBody = new Uint8Array(arrayBuffer);
+
       const { error: uploadError } = await supabase.storage
         .from(bucket)
-        .upload(filename, buffer, {
+        .upload(objectName, uploadBody, {
           contentType: detectedMime,
           upsert: false,
-          cacheControl: "31536000",
+          cacheControl: "3600",
         });
 
       if (uploadError) {
+        const errWithStatus = uploadError as { statusCode?: string | number; status?: number; message?: string };
+        const rawStatus = errWithStatus.statusCode ?? errWithStatus.status ?? "unknown";
+        const safeMessage = String(errWithStatus.message || "Error desconocido de Storage")
+          .replace(/https?:\/\/\S+/gi, "[url]")
+          .slice(0, 200);
+
+        console.error("[promotions/upload] Supabase Storage error:", {
+          bucket,
+          status: rawStatus,
+          message: safeMessage,
+        });
+
         return NextResponse.json(
           {
-            error: `No se pudo subir al bucket '${bucket}' en Supabase Storage. Verifica que el bucket público exista.`,
+            error: `Error Supabase Storage (status ${rawStatus}): ${safeMessage}`,
+            supabaseStatus: rawStatus,
           },
           { status: 502 }
         );
       }
 
-      const { data: pubData } = supabase.storage.from(bucket).getPublicUrl(filename);
+      const { data: pubData } = supabase.storage.from(bucket).getPublicUrl(objectName);
       const publicUrl = pubData?.publicUrl || "";
 
       if (!isSafeUrl(publicUrl, { allowRelative: false })) {
