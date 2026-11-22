@@ -62,7 +62,7 @@ const faqs = [
   },
   {
     question: "¿Qué días y horarios abre esta sucursal?",
-    answer: "Abre de jueves a martes en horario de 9:00 AM a 8:00 PM. Los miércoles permanece cerrado por descanso semanal.",
+    answer: "Abre de jueves a martes en horario de 9:00 AM a 9:00 PM. Los miércoles permanece cerrado por descanso semanal.",
   },
   {
     question: "¿Se debe reservar turno para corte o barba?",
