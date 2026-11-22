@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { whatsappLink } from "@/lib/whatsapp";
+import { trackEvent } from "@/lib/tracker";
 
 export default function WhatsAppFloat() {
   const whatsappUrl = whatsappLink();
@@ -12,6 +13,11 @@ export default function WhatsAppFloat() {
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => {
+        trackEvent("whatsapp_click", {
+          source: "floating_whatsapp",
+        });
+      }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 2, duration: 0.5, type: "spring" }}
