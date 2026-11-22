@@ -7,6 +7,8 @@ import {
   InteractionStage,
   BranchId,
   MetricSummary,
+  BranchConversionRates,
+  DailyTrendPoint,
 } from "@/types/analytics";
 import { getNeonSql, isNeonConfigured } from "@/lib/neonDb";
 import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabaseAdmin";
@@ -351,9 +353,37 @@ export function getAnalyticsStorageMode(): "neon" | "supabase" | "local_ephemera
   return "local_ephemeral";
 }
 
+const MEXICO_TZ = "America/Mexico_City";
+
+function toMexicoDateKey(input: string | Date): string {
+  const dateObj = input instanceof Date ? input : new Date(input);
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: MEXICO_TZ,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(dateObj);
+}
+
+function formatMexicoShortLabel(dateKey: string): string {
+  const parts = dateKey.split("-");
+  if (parts.length !== 3) return dateKey;
+  const d = new Date(`${dateKey}T12:00:00Z`);
+  return new Intl.DateTimeFormat("es-MX", {
+    timeZone: "UTC",
+    day: "2-digit",
+    month: "short",
+  }).format(d);
+}
+
+function safeRate(numerator: number, denominator: number): number {
+  if (denominator <= 0) return 0;
+  return parseFloat(((numerator / denominator) * 100).toFixed(1));
+}
+
 /**
  * Aggregates events for a given date window.
- * Always excludes `isTest: true` events as a safeguard against test contamination.
+ * Strictly read-only. Always excludes `isTest: true` events as a safeguard against test contamination.
  */
 export function aggregateMetrics(
   events: AnalyticsEvent[],
@@ -376,12 +406,35 @@ export function aggregateMetrics(
   };
 
   const serviceViewCounts: Record<string, number> = {};
+  const pageMap = new Map<
+    string,
+    {
+      events: number;
+      sessions: Set<string>;
+      whatsappClicks: number;
+      bookingRequests: number;
+      reviewClicks: number;
+    }
+  >();
+  const sourceMap = new Map<string, { events: number; sessions: Set<string> }>();
+  const dailyMap = new Map<
+    string,
+    {
+      sessions: Set<string>;
+      whatsappClicks: number;
+      bookingRequests: number;
+      reviewClicks: number;
+      totalEvents: number;
+    }
+  >();
 
   let totalVisits = 0;
   let totalInteractions = 0;
   let totalClicks = 0;
   let totalContacts = 0;
   let totalBookingRequests = 0;
+  let totalWhatsappClicks = 0;
+  let totalReviewClicks = 0;
 
   const uniqueSessions = new Set<string>();
 
@@ -393,6 +446,9 @@ export function aggregateMetrics(
     if (ev.stage === "contacto") totalContacts++;
     if (ev.stage === "solicitud_cita") totalBookingRequests++;
 
+    if (ev.type === "whatsapp_click") totalWhatsappClicks++;
+    if (ev.type === "review_click") totalReviewClicks++;
+
     if (ev.branchId && branchBreakdown[ev.branchId]) {
       if (ev.type === "branch_view") branchBreakdown[ev.branchId].views++;
       if (ev.type === "whatsapp_click") branchBreakdown[ev.branchId].whatsappClicks++;
@@ -403,17 +459,140 @@ export function aggregateMetrics(
     if (ev.serviceName) {
       serviceViewCounts[ev.serviceName] = (serviceViewCounts[ev.serviceName] || 0) + 1;
     }
+
+    // Page performance (origin_url)
+    const origin = (ev.originUrl || "/").trim() || "/";
+    let pageEntry = pageMap.get(origin);
+    if (!pageEntry) {
+      pageEntry = {
+        events: 0,
+        sessions: new Set<string>(),
+        whatsappClicks: 0,
+        bookingRequests: 0,
+        reviewClicks: 0,
+      };
+      pageMap.set(origin, pageEntry);
+    }
+    pageEntry.events++;
+    pageEntry.sessions.add(ev.sessionId);
+    if (ev.type === "whatsapp_click") pageEntry.whatsappClicks++;
+    if (ev.type === "booking_request") pageEntry.bookingRequests++;
+    if (ev.type === "review_click") pageEntry.reviewClicks++;
+
+    // Source performance (source)
+    const src = (ev.source || "unknown").trim() || "unknown";
+    let srcEntry = sourceMap.get(src);
+    if (!srcEntry) {
+      srcEntry = { events: 0, sessions: new Set<string>() };
+      sourceMap.set(src, srcEntry);
+    }
+    srcEntry.events++;
+    srcEntry.sessions.add(ev.sessionId);
+
+    // Daily trend in America/Mexico_City
+    const dayKey = toMexicoDateKey(ev.timestamp);
+    let dayEntry = dailyMap.get(dayKey);
+    if (!dayEntry) {
+      dayEntry = {
+        sessions: new Set<string>(),
+        whatsappClicks: 0,
+        bookingRequests: 0,
+        reviewClicks: 0,
+        totalEvents: 0,
+      };
+      dailyMap.set(dayKey, dayEntry);
+    }
+    dayEntry.sessions.add(ev.sessionId);
+    dayEntry.totalEvents++;
+    if (ev.type === "whatsapp_click") dayEntry.whatsappClicks++;
+    if (ev.type === "booking_request") dayEntry.bookingRequests++;
+    if (ev.type === "review_click") dayEntry.reviewClicks++;
   }
 
   totalVisits = uniqueSessions.size;
+
+  const totalBranchViews =
+    branchBreakdown["aviacion-civil"].views +
+    branchBreakdown["ex-glorieta"].views +
+    branchBreakdown.jacarandas.views;
+
+  const branchIds: BranchId[] = ["aviacion-civil", "ex-glorieta", "jacarandas"];
+  const branchRates = {} as Record<BranchId, BranchConversionRates>;
+  for (const bid of branchIds) {
+    const b = branchBreakdown[bid];
+    branchRates[bid] = {
+      viewToWhatsapp: safeRate(b.whatsappClicks, b.views),
+      viewToBooking: safeRate(b.bookingRequests, b.views),
+      shareOfViews: safeRate(b.views, totalBranchViews),
+    };
+  }
+
+  const pagePerformance = Array.from(pageMap.entries())
+    .map(([originUrl, v]) => ({
+      originUrl,
+      events: v.events,
+      uniqueSessions: v.sessions.size,
+      whatsappClicks: v.whatsappClicks,
+      bookingRequests: v.bookingRequests,
+      reviewClicks: v.reviewClicks,
+    }))
+    .sort((a, b) => b.events - a.events)
+    .slice(0, 12);
+
+  const sourcePerformance = Array.from(sourceMap.entries())
+    .map(([source, v]) => ({
+      source,
+      events: v.events,
+      uniqueSessions: v.sessions.size,
+    }))
+    .sort((a, b) => b.events - a.events)
+    .slice(0, 12);
+
+  // Build continuous daily trend in America/Mexico_City (up to 62 days; otherwise sorted active days)
+  const startKey = toMexicoDateKey(startDate);
+  const endKey = toMexicoDateKey(endDate);
+  const startUtc = new Date(`${startKey}T12:00:00Z`);
+  const endUtc = new Date(`${endKey}T12:00:00Z`);
+  const daySpan = Math.round((endUtc.getTime() - startUtc.getTime()) / 86400000) + 1;
+
+  const dailyTrend: DailyTrendPoint[] = [];
+  if (daySpan > 0 && daySpan <= 62) {
+    for (let i = 0; i < daySpan; i++) {
+      const cur = new Date(startUtc.getTime() + i * 86400000);
+      const key = cur.toISOString().slice(0, 10);
+      const entry = dailyMap.get(key);
+      dailyTrend.push({
+        date: key,
+        label: formatMexicoShortLabel(key),
+        visits: entry ? entry.sessions.size : 0,
+        whatsappClicks: entry ? entry.whatsappClicks : 0,
+        bookingRequests: entry ? entry.bookingRequests : 0,
+        reviewClicks: entry ? entry.reviewClicks : 0,
+        totalEvents: entry ? entry.totalEvents : 0,
+      });
+    }
+  } else {
+    Array.from(dailyMap.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .forEach(([key, entry]) => {
+        dailyTrend.push({
+          date: key,
+          label: formatMexicoShortLabel(key),
+          visits: entry.sessions.size,
+          whatsappClicks: entry.whatsappClicks,
+          bookingRequests: entry.bookingRequests,
+          reviewClicks: entry.reviewClicks,
+          totalEvents: entry.totalEvents,
+        });
+      });
+  }
 
   const topServices = Object.entries(serviceViewCounts)
     .map(([name, views]) => ({ name, views }))
     .sort((a, b) => b.views - a.views);
 
-  const visitToContact = totalVisits > 0 ? (totalContacts / totalVisits) * 100 : 0;
-  const contactToBookingRequest =
-    totalContacts > 0 ? (totalBookingRequests / totalContacts) * 100 : 0;
+  const visitToContact = safeRate(totalContacts, totalVisits);
+  const contactToBookingRequest = safeRate(totalBookingRequests, totalContacts);
 
   return {
     totalVisits,
@@ -425,10 +604,24 @@ export function aggregateMetrics(
     confirmedBookingsEstimate: 0,
     completedServicesEstimate: 0,
     branchBreakdown,
+    branchRates,
+    funnel: {
+      visits: totalVisits,
+      whatsappClicks: totalWhatsappClicks,
+      bookingRequests: totalBookingRequests,
+      reviewClicks: totalReviewClicks,
+      visitToWhatsappRate: safeRate(totalWhatsappClicks, totalVisits),
+      whatsappToBookingRate: safeRate(totalBookingRequests, totalWhatsappClicks),
+      visitToBookingRate: safeRate(totalBookingRequests, totalVisits),
+      visitToReviewRate: safeRate(totalReviewClicks, totalVisits),
+    },
+    pagePerformance,
+    sourcePerformance,
+    dailyTrend,
     topServices,
     conversionRates: {
-      visitToContact: parseFloat(visitToContact.toFixed(1)),
-      contactToBookingRequest: parseFloat(contactToBookingRequest.toFixed(1)),
+      visitToContact,
+      contactToBookingRequest,
     },
   };
 }

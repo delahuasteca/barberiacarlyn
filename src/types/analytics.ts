@@ -33,6 +33,48 @@ export interface AnalyticsEvent {
   isTest?: boolean;
 }
 
+export interface PagePerformanceMetric {
+  originUrl: string;
+  events: number;
+  uniqueSessions: number;
+  whatsappClicks: number;
+  bookingRequests: number;
+  reviewClicks: number;
+}
+
+export interface SourcePerformanceMetric {
+  source: string;
+  events: number;
+  uniqueSessions: number;
+}
+
+export interface DailyTrendPoint {
+  date: string; // YYYY-MM-DD in America/Mexico_City
+  label: string;
+  visits: number;
+  whatsappClicks: number;
+  bookingRequests: number;
+  reviewClicks: number;
+  totalEvents: number;
+}
+
+export interface CommercialFunnelSummary {
+  visits: number;
+  whatsappClicks: number;
+  bookingRequests: number;
+  reviewClicks: number;
+  visitToWhatsappRate: number; // %
+  whatsappToBookingRate: number; // %
+  visitToBookingRate: number; // %
+  visitToReviewRate: number; // %
+}
+
+export interface BranchConversionRates {
+  viewToWhatsapp: number; // %
+  viewToBooking: number; // %
+  shareOfViews: number; // %
+}
+
 export interface MetricSummary {
   totalVisits: number;
   totalInteractions: number;
@@ -50,6 +92,11 @@ export interface MetricSummary {
       reviewClicks: number;
     }
   >;
+  branchRates: Record<BranchId, BranchConversionRates>;
+  funnel: CommercialFunnelSummary;
+  pagePerformance: PagePerformanceMetric[];
+  sourcePerformance: SourcePerformanceMetric[];
+  dailyTrend: DailyTrendPoint[];
   topServices: { name: string; views: number }[];
   conversionRates: {
     visitToContact: number; // %
