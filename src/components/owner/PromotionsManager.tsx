@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   Promotion,
   PromotionCtaType,
@@ -23,6 +23,8 @@ import {
   AlertCircle,
   CheckCircle2,
   RefreshCw,
+  Upload,
+  Image as ImageIcon,
 } from "lucide-react";
 
 interface PromotionsManagerProps {
@@ -99,6 +101,9 @@ export default function PromotionsManager({ onUnauthorized }: PromotionsManagerP
   const [storageMode, setStorageMode] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadNotice, setUploadNotice] = useState<string>("");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [errorDetails, setErrorDetails] = useState<string[]>([]);
   const [successMsg, setSuccessMsg] = useState<string>("");
@@ -241,6 +246,59 @@ export default function PromotionsManager({ onUnauthorized }: PromotionsManagerP
           : [...prev.targetPaths, targetPath],
       };
     });
+  }
+
+  async function handleImageFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    // Reset input so choosing the same file again triggers onChange
+    e.target.value = "";
+    if (!file) return;
+
+    setErrorMsg("");
+    setErrorDetails([]);
+    setUploadNotice("");
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type.toLowerCase())) {
+      setErrorMsg("Formato no permitido. Selecciona únicamente una imagen JPG, PNG o WebP.");
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      setErrorMsg("La imagen supera el límite máximo de 2 MB.");
+      return;
+    }
+
+    setUploadingImage(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/promotions/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.status === 401) {
+        onUnauthorized();
+        return;
+      }
+
+      const data = await res.json();
+      if (!res.ok || !data.ok || !data.url) {
+        setErrorMsg(data.error || "No se pudo subir la imagen.");
+        return;
+      }
+
+      setForm((prev) => ({ ...prev, imageUrl: data.url }));
+      setUploadNotice(
+        `Imagen subida correctamente (${data.provider === "vercel_blob" ? "Vercel Blob" : "Supabase Storage"}).`
+      );
+    } catch {
+      setErrorMsg("Error de conexión al subir la imagen.");
+    } finally {
+      setUploadingImage(false);
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -453,17 +511,81 @@ export default function PromotionsManager({ onUnauthorized }: PromotionsManagerP
               />
             </div>
 
-            <div>
-              <label className="block text-xs uppercase text-cream/70 font-semibold mb-1.5">
-                URL de Imagen (HTTPS o /images/...)
-              </label>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between gap-2">
+                <label className="block text-xs uppercase text-cream/70 font-semibold">
+                  Imagen de la Promoción (JPG, PNG, WebP · máx. 2 MB)
+                </label>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handleImageFileChange}
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  disabled={uploadingImage}
+                  onClick={() => fileInputRef.current?.click()}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 bg-gold/15 border border-gold/45 text-gold text-[11px] font-bold uppercase tracking-wider hover:bg-gold hover:text-brown-dark transition-colors disabled:opacity-50"
+                >
+                  <Upload className="w-3.5 h-3.5" />
+                  <span>
+                    {uploadingImage
+                      ? "Subiendo..."
+                      : form.imageUrl
+                        ? "Reemplazar imagen"
+                        : "Subir imagen"}
+                  </span>
+                </button>
+              </div>
+
               <input
                 type="text"
                 value={form.imageUrl}
-                onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
-                placeholder="/images/hero.jpg o https://..."
+                onChange={(e) => {
+                  setUploadNotice("");
+                  setForm({ ...form, imageUrl: e.target.value });
+                }}
+                placeholder="/images/hero.jpg o https://... (se llena automáticamente al subir)"
                 className="w-full px-3 py-2 bg-brown-dark border border-gold/30 text-cream text-sm focus:outline-none focus:border-gold"
               />
+
+              {uploadNotice && (
+                <p className="text-[11px] text-green-300">{uploadNotice}</p>
+              )}
+
+              {form.imageUrl && (
+                <div className="flex items-center gap-3 p-2 bg-brown-dark/80 border border-gold/25">
+                  <div className="w-20 h-12 bg-brown-medium overflow-hidden shrink-0 flex items-center justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={form.imageUrl}
+                      alt="Vista previa de imagen cargada"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1 text-[11px] text-gold font-semibold">
+                      <ImageIcon className="w-3 h-3 shrink-0" />
+                      <span>Vista previa cargada</span>
+                    </div>
+                    <p className="text-[10px] text-cream/50 truncate font-mono">
+                      {form.imageUrl}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUploadNotice("");
+                      setForm({ ...form, imageUrl: "" });
+                    }}
+                    className="text-[11px] px-2 py-1 border border-red-500/30 text-red-300 hover:bg-red-950/60 shrink-0"
+                  >
+                    Quitar
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
