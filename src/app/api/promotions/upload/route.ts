@@ -98,26 +98,47 @@ export async function POST(request: NextRequest) {
     const ext = ALLOWED_MIME_TO_EXT[detectedMime];
     const objectName = `promo-${Date.now()}-${crypto.randomBytes(6).toString("hex")}.${ext}`;
 
-    // Priority 1: Vercel Blob (when BLOB_READ_WRITE_TOKEN is configured)
+    // Priority 1: Vercel Blob (supports both OIDC + BLOB_STORE_ID and legacy BLOB_READ_WRITE_TOKEN)
     const blobToken = (process.env.BLOB_READ_WRITE_TOKEN || "").trim();
-    if (blobToken) {
-      const blob = await put(`promotions/${objectName}`, buffer, {
-        access: "public",
-        contentType: detectedMime,
-        token: blobToken,
-      });
+    const blobStoreId = (process.env.BLOB_STORE_ID || "").trim();
+    if (blobToken || blobStoreId) {
+      try {
+        const blob = await put(
+          `promotions/${objectName}`,
+          buffer,
+          blobToken
+            ? { access: "public", contentType: detectedMime, token: blobToken }
+            : { access: "public", contentType: detectedMime }
+        );
 
-      if (!isSafeUrl(blob.url, { allowRelative: false })) {
+        if (!isSafeUrl(blob.url, { allowRelative: false })) {
+          return NextResponse.json(
+            { error: "URL de almacenamiento inválida." },
+            { status: 500 }
+          );
+        }
+
         return NextResponse.json(
-          { error: "URL de almacenamiento inválida." },
-          { status: 500 }
+          {
+            ok: true,
+            url: blob.url,
+            provider: "vercel_blob",
+            authMode: blobToken ? "token" : "oidc",
+            contentType: detectedMime,
+            size: file.size,
+          },
+          { status: 201 }
+        );
+      } catch (blobErr) {
+        const safeMsg = String((blobErr as Error)?.message || "Error al subir a Vercel Blob")
+          .replace(/https?:\/\/\S+/gi, "[url]")
+          .slice(0, 200);
+        console.error("[promotions/upload] Vercel Blob error:", safeMsg);
+        return NextResponse.json(
+          { error: `Error Vercel Blob: ${safeMsg}` },
+          { status: 502 }
         );
       }
-
-      return NextResponse.json(
-        { ok: true, url: blob.url, provider: "vercel_blob", contentType: detectedMime, size: file.size },
-        { status: 201 }
-      );
     }
 
     // Priority 2: Supabase Storage (free bucket 'Promotions', zero extra env vars in Preview)
