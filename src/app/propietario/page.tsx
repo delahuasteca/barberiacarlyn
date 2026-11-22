@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import BrandLogo from "@/components/BrandLogo";
+import PromotionsManager from "@/components/owner/PromotionsManager";
 import { MetricSummary } from "@/types/analytics";
 import { IntegrationStatus, ChatWebSummary } from "@/lib/integrations";
 import { 
@@ -19,7 +20,8 @@ import {
   PhoneCall,
   CalendarCheck,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Tag
 } from "lucide-react";
 
 interface DashboardPayload {
@@ -42,6 +44,9 @@ export default function OwnerDashboard() {
   const [passwordInput, setPasswordInput] = useState("");
   const [authError, setAuthError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Active owner tab
+  const [activeTab, setActiveTab] = useState<"analytics" | "promotions">("analytics");
 
   // Dashboard Data State
   const [preset, setPreset] = useState("30d");
@@ -240,6 +245,39 @@ export default function OwnerDashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
+        {/* Owner Navigation Tabs */}
+        <div className="flex items-center gap-2 border-b border-gold/25 pb-3">
+          <button
+            type="button"
+            onClick={() => setActiveTab("analytics")}
+            className={`inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${
+              activeTab === "analytics"
+                ? "bg-gold text-brown-dark"
+                : "border border-gold/25 text-cream/70 hover:border-gold/60 hover:text-cream"
+            }`}
+          >
+            <BarChart3 className="w-3.5 h-3.5" />
+            <span>Analítica Comercial</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab("promotions")}
+            className={`inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${
+              activeTab === "promotions"
+                ? "bg-gold text-brown-dark"
+                : "border border-gold/25 text-cream/70 hover:border-gold/60 hover:text-cream"
+            }`}
+          >
+            <Tag className="w-3.5 h-3.5" />
+            <span>Promociones</span>
+          </button>
+        </div>
+
+        {activeTab === "promotions" ? (
+          <PromotionsManager onUnauthorized={() => setIsAuthenticated(false)} />
+        ) : (
+          <>
         {/* Filters Bar */}
         <section className="p-4 bg-brown-medium/30 border border-gold/20 flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-2">
@@ -582,6 +620,8 @@ export default function OwnerDashboard() {
             </a>
           </div>
         </section>
+          </>
+        )}
       </main>
     </div>
   );
