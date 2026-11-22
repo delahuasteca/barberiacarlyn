@@ -4,14 +4,14 @@ import BranchLanding from "@/components/BranchLanding";
 export const metadata: Metadata = {
   title: "Barbería en Santa Irene Huejutla | Barbería Carlyn Ex-Glorieta",
   description:
-    "Barbería Carlyn en Ex-Glorieta / Santa Irene, Huejutla. Cortes de cabello y arreglo de barba atendido por Johan y Chucky Barber. Jueves a martes sin cita previa.",
+    "Barbería Carlyn en Ex-Glorieta / Santa Irene, Huejutla. Cortes de cabello y arreglo de barba atendido por Johan y Chucky Barber. Lunes a Domingo sin cita previa.",
   alternates: {
     canonical: "/barberia-huejutla-ex-glorieta",
   },
   openGraph: {
     title: "Barbería en Santa Irene Huejutla | Barbería Carlyn Ex-Glorieta",
     description:
-      "Barbería Carlyn en Ex-Glorieta / Santa Irene, Huejutla. Cortes de cabello y arreglo de barba atendido por Johan y Chucky Barber. Jueves a martes sin cita previa.",
+      "Barbería Carlyn en Ex-Glorieta / Santa Irene, Huejutla. Cortes de cabello y arreglo de barba atendido por Johan y Chucky Barber. Lunes a Domingo sin cita previa.",
     url: "https://www.barberiacarlyn.com/barberia-huejutla-ex-glorieta",
     siteName: "Barbería Carlyn",
     locale: "es_MX",
@@ -39,7 +39,7 @@ const jsonLd = {
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Thursday", "Friday", "Saturday", "Sunday", "Monday", "Tuesday"],
+      "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       "opens": "09:00",
       "closes": "20:00",
     },
@@ -62,7 +62,7 @@ const faqs = [
   },
   {
     question: "¿Qué días y horarios abre esta sucursal?",
-    answer: "Abre de jueves a martes en horario de 9:00 AM a 9:00 PM. Los miércoles permanece cerrado por descanso semanal.",
+    answer: "Abre de Lunes a Domingo en horario de 9:00 AM a 9:00 PM.",
   },
   {
     question: "¿Se debe reservar turno para corte o barba?",
